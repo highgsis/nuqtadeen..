@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#15392e">
+  <title>نُقْطَة | المسابقة الإسلامية</title>
+
+
+  <style>
+    @font-face {
+      font-family: "NT Panorama Naskh";
+      src: url("./NTPanoramaNaskh-Regular.woff2") format("woff2");
+      font-style: normal;
+      font-weight: 400 700;
+      font-display: swap;
+    }
+    :root {
+      --green: #15392e;
+      --green2: #245746;
+      --gold: #d5b36b;
+      --bg: #f5f5ef;
+      --card: #ffffff;
+      --text: #203a30;
+      --muted: #78857d;
+      --border: #e5e8df;
+      --success: #26754b;
+      --danger: #b94c45;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "NT Panorama Naskh", serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    button, input, select {
+      font-family: inherit;
+      font-size: inherit;
+    }
+
+    button {
+      cursor: pointer;
+      transition: .2s ease;
+    }
+
+    button:active {
+      transform: scale(.98);
+    }
+
+    .topbar {
+      background: var(--green);
+      color: white;
+      padding: 13px 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand {
+      font-size: 32px;
+      font-weight: bold;
+      color: var(--gold);
+      line-height: 1.2;
+    }
+
+    .top-caption {
+      color: #d9e4dc;
+      font-size: 15px;
+    }
+
+    main {
+      width: min(920px, 92%);
+      margin: 30px auto 55px;
+    }
+
+    .hero {
+      background: var(--green);
+      color: white;
+      border-radius: 25px;
+      padding: 32px;
+      margin-bottom: 22px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "۞";
+      position: absolute;
+      left: 16px;
+      top: -32px;
+      color: rgba(213,179,107,.13);
+      font-size: 175px;
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      color: var(--gold);
+      font-size: 17px;
+      margin-bottom: 4px;
+    }
+
+    .hero h1 {
+      font-size: clamp(30px, 5vw, 43px);
+      margin: 0 0 8px;
+      line-height: 1.5;
+    }
+
+    .hero p {
+      margin: 0;
+      font-size: 18px;
+      color: #dce6df;
+      max-width: 580px;
+    }
+
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 21px;
+      padding: 24px;
+      margin-bottom: 18px;
+      box-shadow: 0 7px 25px rgba(20,50,38,.035);
+    }
+
+    .section-title {
+      font-size: 25px;
+      margin: 0 0 15px;
+    }
+
+    .mode-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .mode-card {
+      text-align: right;
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      padding: 16px;
+      background: #fbfcf8;
+      color: var(--text);
+    }
+
+    .mode-card.active {
+      border-color: var(--green2);
+      background: #edf4ee;
+    }
+
+    .mode-icon {
+      display: block;
+      font-size: 27px;
+      margin-bottom: 4px;
+    }
+
+    .mode-card strong {
+      display: block;
+      font-size: 20px;
+    }
+
+    .mode-card small {
+      display: block;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .field label {
+      font-size: 17px;
+      font-weight: bold;
+    }
+
+    .field input,
+    .field select {
+      width: 100%;
+      padding: 11px 12px;
+      border: 1px solid #dfe4da;
+      border-radius: 11px;
+      background: #fafbf8;
+      color: var(--text);
+      outline: none;
+    }
+
+    .field input:focus,
+    .field select:focus {
+      border-color: var(--green2);
+    }
+
+    .primary-btn {
+      display: block;
+      width: 100%;
+      border: 0;
+      border-radius: 13px;
+      padding: 13px 18px;
+      background: var(--green);
+      color: white;
+      font-size: 21px;
+      font-weight: bold;
+      margin-top: 12px;
+    }
+
+    .primary-btn:hover {
+      background: var(--green2);
+    }
+
+    .secondary-btn {
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 10px 16px;
+      background: #edf2eb;
+      color: var(--green);
+      font-weight: bold;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .quiz-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .pill {
+      display: inline-block;
+      background: #edf2eb;
+      border-radius: 30px;
+      padding: 5px 12px;
+      font-size: 15px;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 7px;
+      background: #e8ebe4;
+      border-radius: 20px;
+      overflow: hidden;
+      margin: 18px 0;
+    }
+
+    .progress-fill {
+      width: 0;
+      height: 100%;
+      background: var(--gold);
+      transition: width .25s;
+    }
+
+    .question {
+      font-size: clamp(24px, 4vw, 31px);
+      line-height: 1.7;
+      margin: 12px 0 20px;
+    }
+
+    .answers {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .answer {
+      text-align: right;
+      border: 1.5px solid var(--border);
+      background: #fbfcf9;
+      color: var(--text);
+      padding: 14px;
+      border-radius: 13px;
+      min-height: 58px;
+      font-size: 18px;
+    }
+
+    .answer:hover:not(:disabled) {
+      border-color: var(--green2);
+      background: #f0f5ef;
+    }
+
+    .answer.correct {
+      border-color: var(--success);
+      background: #e5f5e9;
+      color: #1c6840;
+    }
+
+    .answer.wrong {
+      border-color: var(--danger);
+      background: #fff0ee;
+      color: #a63e38;
+    }
+
+    .answer:disabled {
+      cursor: default;
+    }
+
+    .feedback {
+      padding: 13px 15px;
+      border-radius: 12px;
+      margin-top: 16px;
+      font-size: 18px;
+      line-height: 1.7;
+    }
+
+    .feedback.good {
+      background: #e7f4e9;
+      color: #216b40;
+    }
+
+    .feedback.bad {
+      background: #fff0ee;
+      color: #a63e38;
+    }
+
+    .quiz-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 17px;
+    }
+
+    .quiz-actions button {
+      flex: 1;
+    }
+
+    .score-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 18px 0;
+    }
+
+    .score-box {
+      background: #f6f7f1;
+      border-radius: 15px;
+      padding: 17px;
+      text-align: center;
+    }
+
+    .score-box span {
+      display: block;
+      font-size: 17px;
+      color: var(--muted);
+    }
+
+    .score-box strong {
+      display: block;
+      font-size: 31px;
+      color: var(--green);
+    }
+
+    .result-icon {
+      font-size: 55px;
+      text-align: center;
+    }
+
+    .result-heading {
+      text-align: center;
+      font-size: 30px;
+      margin: 4px 0;
+    }
+
+    .result-description {
+      text-align: center;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .review-item {
+      border-bottom: 1px solid var(--border);
+      padding: 13px 0;
+    }
+
+    .review-item:last-child {
+      border-bottom: 0;
+    }
+
+    .review-question {
+      font-size: 19px;
+      font-weight: bold;
+    }
+
+    .review-answer {
+      color: var(--success);
+      font-size: 17px;
+    }
+
+    .review-your-answer {
+      color: var(--danger);
+      font-size: 16px;
+    }
+
+    .footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 15px;
+      padding: 10px 0 20px;
+    }
+
+    .creator {
+      margin-top: 6px;
+      font-size: 14px;
+      color: var(--green2);
+      opacity: 0.8;
+    }
+
+    @media (max-width: 600px) {
+      main {
+        margin-top: 18px;
+      }
+
+      .hero {
+        padding: 24px 20px;
+      }
+
+      .panel {
+        padding: 18px;
+      }
+
+      .field-grid,
+      .answers {
+        grid-template-columns: 1fr;
+      }
+
+      .mode-grid {
+        gap: 8px;
+      }
+
+      .mode-card {
+        padding: 12px;
+      }
+
+      .quiz-actions {
+        flex-direction: column;
+      }
+
+      .top-caption {
+        font-size: 13px;
+      }
+    }
+
+    .source-note { margin-top:18px; border-top:1px solid var(--border); padding-top:14px; font-size:14px; line-height:1.85; color:#4c6055; }
+    .source-note a { color:var(--green2); text-underline-offset:3px; }
+    .help-text { font-size:15px; color:var(--muted); margin:5px 0 10px; line-height:1.85; }
+    .button-row { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+    .button-row button { flex:1 1 170px; }
+    .field input:focus-visible, .field select:focus-visible, button:focus-visible { outline:3px solid var(--gold); outline-offset:2px; }
+
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="brand">نُقْطَة</div>
+    <div class="top-caption">المسابقة الإسلامية التفاعلية</div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="eyebrow">معرفة • منافسة • تعلّم</div>
+      <h1>اختبر معلوماتك الإسلامية</h1>
+      <p>تحدَّ نفسك، واكتشف معلومات جديدة، أو نافس أصدقاءك في مسابقة إسلامية ممتعة.</p>
+    </section>
+
+    <section id="setup">
+      <div class="panel">
+        <h2 class="section-title">اختر طريقة اللعب</h2>
+
+        <div class="mode-grid">
+          <button class="mode-card active" id="soloMode" onclick="setMode('solo')">
+            <span class="mode-icon">🧠</span>
+            <strong>تحدّي فردي</strong>
+            <small>اختبر معلوماتك بنفسك</small>
+          </button>
+
+          <button class="mode-card" id="duoMode" onclick="setMode('duo')">
+            <span class="mode-icon">🏆</span>
+            <strong>وضع التنافس</strong>
+            <small>لاعبان يتنافسان على النقاط</small>
+          </button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2 class="section-title">إعدادات المسابقة</h2>
+
+        <div id="playerNames" class="field-grid hidden">
+          <div class="field">
+            <label for="player1">اسم اللاعب الأول</label>
+            <input id="player1" maxlength="20" placeholder="اللاعب الأول">
+          </div>
+
+          <div class="field">
+            <label for="player2">اسم اللاعب الثاني</label>
+            <input id="player2" maxlength="20" placeholder="اللاعب الثاني">
+          </div>
+        </div>
+
+
+        <div class="field">
+          <label for="questionSource">مصدر الأسئلة</label>
+          <select id="questionSource" onchange="updateSourceSelection()">
+            <option value="general">الأسئلة الإسلامية العامة — البنك الأصلي</option>
+            <option value="textbook">📚 دروس الثالث المتوسط — الفصل الأول</option>
+            <option value="personal">✍️ أسئلتي المضافة</option>
+          </select>
+        </div>
+        <div id="lessonChoice" class="field hidden">
+          <label for="lessonSelect">اختر الدرس الذي تريد الأسئلة منه</label>
+          <select id="lessonSelect"><option value="all">جميع الدروس العشرين</option></select>
+          <div class="help-text" id="lessonHelp">تظهر فقط أسئلة الدرس المختار.</div>
+        </div>
+        <div id="personalChoice" class="help-text hidden">تُحفظ أسئلتك المضافة على هذا المتصفح فقط.</div>
+        <div class="field-grid">
+          <div class="field" id="categoryField">
+            <label for="category">التصنيف</label>
+            <select id="category">
+              <option value="الكل">جميع التصنيفات</option>
+              <option value="القرآن الكريم">القرآن الكريم</option>
+              <option value="الأنبياء">الأنبياء والرسل</option>
+              <option value="السيرة النبوية">السيرة النبوية</option>
+              <option value="العبادات">العبادات</option>
+              <option value="الصحابة">الصحابة</option>
+              <option value="معلومات إسلامية">معلومات إسلامية</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="difficulty">مستوى الصعوبة</label>
+            <select id="difficulty">
+              <option value="الكل">جميع المستويات</option>
+              <option value="سهل">سهل</option>
+              <option value="متوسط">متوسط</option>
+              <option value="صعب">صعب</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="questionCount">عدد الأسئلة</label>
+            <select id="questionCount">
+              <option value="9">9 أسئلة</option>
+              <option value="10">10 أسئلة</option>
+              <option value="15">15 سؤالًا</option>
+              <option value="20" selected>20 سؤالًا</option>
+              <option value="30">30 سؤالًا</option>
+              <option value="50">50 سؤالًا</option>
+              <option value="all">كل الأسئلة المتاحة</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="help-text" id="countHint" aria-live="polite"></div>
+        <button class="primary-btn" onclick="startQuiz()">ابدأ المسابقة ←</button>
+        <div class="source-note">
+          <strong>ملاحظة المصادر:</strong> تمت صياغة أسئلة قسم «دروس ثالث متوسط» اعتمادًا على فهرس الفصل الأول المتداول لطبعة 1448 ونصوص الدروس المعروضة من كتاب وزارة التعليم بطبعة 1446 على منصة سهل. لم تتوفر مطابقة مباشرة لكل سؤال مع النسخة الرسمية لطبعة 1448؛ للمراجعة النهائية راجع <a href="https://www.moe.gov.sa/ar/services/unified-services-guide/courses" target="_blank" rel="noopener noreferrer">خدمة مقرراتي في وزارة التعليم</a>.
+        </div>
+      </div>
+
+      <div class="panel" id="customPanel">
+        <h2 class="section-title">أضف سؤالًا من عندك ✍️</h2>
+        <p class="help-text">تقدر تضيف أسئلة اختيار من متعدد، وتختار إذا كانت تابعة لدرس محدد. أسئلتك لا تغيّر بنك الأسئلة الأصلي.</p>
+        <div class="field-grid">
+          <div class="field"><label for="customLesson">ربط السؤال بالدرس (اختياري)</label><select id="customLesson"><option value="none">سؤال شخصي عام</option></select></div>
+          <div class="field"><label for="customDifficulty">درجة الصعوبة</label><select id="customDifficulty"><option>سهل</option><option>متوسط</option><option>صعب</option></select></div>
+        </div>
+        <div class="field"><label for="customQuestion">السؤال</label><input id="customQuestion" maxlength="300" placeholder="اكتب سؤالك هنا"></div>
+        <div class="field-grid">
+          <div class="field"><label for="customOption0">الخيار الأول</label><input id="customOption0" maxlength="180"></div>
+          <div class="field"><label for="customOption1">الخيار الثاني</label><input id="customOption1" maxlength="180"></div>
+          <div class="field"><label for="customOption2">الخيار الثالث</label><input id="customOption2" maxlength="180"></div>
+          <div class="field"><label for="customOption3">الخيار الرابع</label><input id="customOption3" maxlength="180"></div>
+        </div>
+        <div class="field"><label for="correctOption">أي خيار هو الصحيح؟</label>
+          <select id="correctOption"><option value="0">الخيار الأول</option><option value="1">الخيار الثاني</option><option value="2">الخيار الثالث</option><option value="3">الخيار الرابع</option></select>
+        </div>
+        <div class="button-row"><button class="secondary-btn" onclick="addCustomQuestion()">إضافة السؤال</button><button class="secondary-btn" onclick="exportMyQuestions()">تصدير أسئلتي JSON</button><button class="secondary-btn" onclick="clearMyQuestions()">حذف أسئلتي</button></div>
+        <div class="help-text" id="customStatus" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section id="quizScreen" class="hidden">
+      <div class="panel">
+        <div class="quiz-meta">
+          <span class="pill" id="questionNumber">السؤال 1</span>
+          <span class="pill" id="categoryLabel">القرآن الكريم</span>
+          <span class="pill" id="turnLabel">دور اللاعب</span>
+        </div>
+
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <h2 class="question" id="questionText"></h2>
+        <div class="answers" id="answers"></div>
+        <div id="feedback" class="feedback hidden"></div>
+
+        <div class="quiz-actions">
+          <button class="secondary-btn" onclick="quitQuiz()">إنهاء المسابقة</button>
+          <button class="primary-btn hidden" id="nextButton" onclick="nextQuestion()" style="margin-top:0">السؤال التالي ←</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="resultScreen" class="hidden">
+      <div class="panel">
+        <div class="result-icon" id="resultIcon">🏆</div>
+        <h2 class="result-heading" id="resultTitle">انتهت المسابقة!</h2>
+        <p class="result-description" id="resultDescription"></p>
+
+        <div class="score-grid" id="scoreGrid"></div>
+
+        <h2 class="section-title">مراجعة الإجابات</h2>
+        <div id="reviewList"></div>
+
+        <button class="primary-btn" onclick="showSetup()">العودة إلى الصفحة الرئيسية</button>
+        <button class="secondary-btn" style="width:100%;margin-top:10px" onclick="startQuiz()">إعادة المسابقة</button>
+      </div>
+    </section>
+
+    <div class="footer">
+      نُقْطَة — تعلّم، نافس، وازدد معرفة
+      <div class="creator">صُنع بواسطة حمزة بدوي © 2026</div>
+    </div>
+  </main>
+
+  <script>
+    const questions = [
+      // القرآن الكريم
+      {q:"ما السورة التي تُسمّى قلب القرآن؟",a:"سورة يس",o:["سورة الرحمن","سورة يس","سورة الملك","سورة الواقعة"],c:"القرآن الكريم",d:"سهل"},
+      {q:"كم عدد سور القرآن الكريم؟",a:"114 سورة",o:["110 سور","112 سورة","114 سورة","120 سورة"],c:"القرآن الكريم",d:"سهل"},
+      {q:"ما أطول سورة في القرآن الكريم؟",a:"سورة البقرة",o:["سورة آل عمران","سورة البقرة","سورة النساء","سورة المائدة"],c:"القرآن الكريم",d:"سهل"},
+      {q:"ما أقصر سورة في القرآن الكريم؟",a:"سورة الكوثر",o:["سورة العصر","سورة الإخلاص","سورة الكوثر","سورة النصر"],c:"القرآن الكريم",d:"سهل"},
+      {q:"ما أول سورة في ترتيب المصحف؟",a:"سورة الفاتحة",o:["سورة البقرة","سورة الفاتحة","سورة العلق","سورة الناس"],c:"القرآن الكريم",d:"سهل"},
+      {q:"ما السورة التي لا تبدأ بالبسملة؟",a:"سورة التوبة",o:["سورة التوبة","سورة النمل","سورة الكهف","سورة يونس"],c:"القرآن الكريم",d:"متوسط"},
+      {q:"ما السورة التي وردت فيها البسملة مرتين؟",a:"سورة النمل",o:["سورة النمل","سورة يوسف","سورة مريم","سورة القصص"],c:"القرآن الكريم",d:"متوسط"},
+      {q:"في أي شهر نزل القرآن الكريم؟",a:"رمضان",o:["محرم","شعبان","رمضان","شوال"],c:"القرآن الكريم",d:"سهل"},
+      {q:"ما أول ما نزل من القرآن الكريم؟",a:"اقرأ باسم ربك الذي خلق",o:["الحمد لله رب العالمين","قل هو الله أحد","اقرأ باسم ربك الذي خلق","يا أيها المدثر"],c:"القرآن الكريم",d:"متوسط"},
+      {q:"كم عدد أجزاء القرآن الكريم؟",a:"30 جزءًا",o:["20 جزءًا","25 جزءًا","30 جزءًا","40 جزءًا"],c:"القرآن الكريم",d:"سهل"},
+      {q:"ما السورة التي تُقرأ في كل ركعة من الصلاة؟",a:"سورة الفاتحة",o:["سورة الفاتحة","سورة الإخلاص","سورة الناس","سورة الفلق"],c:"القرآن الكريم",d:"سهل"},
+      {q:"ما السورة التي سُمّيت باسم امرأة؟",a:"سورة مريم",o:["سورة مريم","سورة النساء","سورة النور","سورة المجادلة"],c:"القرآن الكريم",d:"سهل"},
+      {q:"ما السورة التي سُمّيت باسم نبي وتبدأ بـ «الر»؟",a:"سورة إبراهيم",o:["سورة طه","سورة إبراهيم","سورة نوح","سورة محمد"],c:"القرآن الكريم",d:"متوسط"},
+      {q:"في أي سورة توجد آية الكرسي؟",a:"سورة البقرة",o:["سورة آل عمران","سورة البقرة","سورة النساء","سورة التوبة"],c:"القرآن الكريم",d:"سهل"},
+      {q:"ما السورة التي تبدأ بـ «تبارك الذي بيده الملك»؟",a:"سورة الملك",o:["سورة القلم","سورة الملك","سورة الواقعة","سورة الحديد"],c:"القرآن الكريم",d:"سهل"},
+      {q:"ما المقصود بليلة القدر من حيث الفضل؟",a:"ليلة خير من ألف شهر",o:["ليلة تساوي يومًا واحدًا","ليلة خير من ألف شهر","أول ليلة من السنة","ليلة النصف من شعبان"],c:"القرآن الكريم",d:"متوسط"},
+      {q:"كم عدد آيات سورة الفاتحة؟",a:"7 آيات",o:["5 آيات","6 آيات","7 آيات","8 آيات"],c:"القرآن الكريم",d:"متوسط"},
+      {q:"ما السورة التي ورد فيها ذكر أصحاب الكهف؟",a:"سورة الكهف",o:["سورة مريم","سورة الكهف","سورة الأنبياء","سورة القصص"],c:"القرآن الكريم",d:"سهل"},
+
+      // الأنبياء والرسل
+      {q:"من أول الأنبياء؟",a:"آدم عليه السلام",o:["نوح عليه السلام","إبراهيم عليه السلام","آدم عليه السلام","إدريس عليه السلام"],c:"الأنبياء",d:"سهل"},
+      {q:"من خاتم الأنبياء والمرسلين؟",a:"محمد ﷺ",o:["عيسى عليه السلام","موسى عليه السلام","إبراهيم عليه السلام","محمد ﷺ"],c:"الأنبياء",d:"سهل"},
+      {q:"من النبي الذي ابتلعه الحوت؟",a:"يونس عليه السلام",o:["أيوب عليه السلام","يونس عليه السلام","يوسف عليه السلام","هود عليه السلام"],c:"الأنبياء",d:"سهل"},
+      {q:"من النبي الذي كلّمه الله؟",a:"موسى عليه السلام",o:["داود عليه السلام","موسى عليه السلام","يوسف عليه السلام","صالح عليه السلام"],c:"الأنبياء",d:"سهل"},
+      {q:"من النبي الذي بنى السفينة بأمر الله؟",a:"نوح عليه السلام",o:["إبراهيم عليه السلام","نوح عليه السلام","لوط عليه السلام","إسماعيل عليه السلام"],c:"الأنبياء",d:"سهل"},
+      {q:"من النبي الذي أُلقي في النار فلم تحرقه؟",a:"إبراهيم عليه السلام",o:["موسى عليه السلام","إبراهيم عليه السلام","يعقوب عليه السلام","زكريا عليه السلام"],c:"الأنبياء",d:"سهل"},
+      {q:"من النبي الذي اشتهر بتفسير الرؤى؟",a:"يوسف عليه السلام",o:["يوسف عليه السلام","سليمان عليه السلام","هارون عليه السلام","إلياس عليه السلام"],c:"الأنبياء",d:"سهل"},
+      {q:"من النبي الذي علّمه الله منطق الطير؟",a:"سليمان عليه السلام",o:["داود عليه السلام","سليمان عليه السلام","يحيى عليه السلام","إسحاق عليه السلام"],c:"الأنبياء",d:"متوسط"},
+      {q:"من النبي الذي كان يصنع الدروع؟",a:"داود عليه السلام",o:["داود عليه السلام","موسى عليه السلام","عيسى عليه السلام","إدريس عليه السلام"],c:"الأنبياء",d:"متوسط"},
+      {q:"من والد النبي إسماعيل عليه السلام؟",a:"إبراهيم عليه السلام",o:["يعقوب عليه السلام","إبراهيم عليه السلام","نوح عليه السلام","زكريا عليه السلام"],c:"الأنبياء",d:"سهل"},
+      {q:"من النبي الذي وُلد من غير أب؟",a:"عيسى عليه السلام",o:["يحيى عليه السلام","عيسى عليه السلام","إسحاق عليه السلام","يوسف عليه السلام"],c:"الأنبياء",d:"سهل"},
+      {q:"من النبي الذي دعا: «رب إني مسني الضر وأنت أرحم الراحمين»؟",a:"أيوب عليه السلام",o:["أيوب عليه السلام","يونس عليه السلام","زكريا عليه السلام","يعقوب عليه السلام"],c:"الأنبياء",d:"متوسط"},
+      {q:"من النبي الذي رفع قواعد الكعبة مع ابنه؟",a:"إبراهيم عليه السلام",o:["نوح عليه السلام","إبراهيم عليه السلام","موسى عليه السلام","داود عليه السلام"],c:"الأنبياء",d:"متوسط"},
+      {q:"من الابن الذي شارك إبراهيم عليه السلام في رفع قواعد الكعبة؟",a:"إسماعيل عليه السلام",o:["إسحاق عليه السلام","يعقوب عليه السلام","إسماعيل عليه السلام","يوسف عليه السلام"],c:"الأنبياء",d:"متوسط"},
+      {q:"من النبي الذي أرسله الله إلى قوم عاد؟",a:"هود عليه السلام",o:["صالح عليه السلام","هود عليه السلام","شعيب عليه السلام","لوط عليه السلام"],c:"الأنبياء",d:"متوسط"},
+      {q:"من النبي الذي أُرسل إلى قوم ثمود؟",a:"صالح عليه السلام",o:["هود عليه السلام","صالح عليه السلام","شعيب عليه السلام","إدريس عليه السلام"],c:"الأنبياء",d:"متوسط"},
+
+      // السيرة النبوية
+      {q:"في أي مدينة وُلد النبي محمد ﷺ؟",a:"مكة المكرمة",o:["المدينة المنورة","الطائف","مكة المكرمة","القدس"],c:"السيرة النبوية",d:"سهل"},
+      {q:"إلى أي مدينة هاجر النبي ﷺ؟",a:"المدينة المنورة",o:["الطائف","المدينة المنورة","دمشق","القدس"],c:"السيرة النبوية",d:"سهل"},
+      {q:"ما اسم والد النبي محمد ﷺ؟",a:"عبد الله",o:["عبد المطلب","أبو طالب","عبد الله","حمزة"],c:"السيرة النبوية",d:"سهل"},
+      {q:"ما اسم والدة النبي محمد ﷺ؟",a:"آمنة بنت وهب",o:["خديجة بنت خويلد","آمنة بنت وهب","حليمة السعدية","فاطمة بنت أسد"],c:"السيرة النبوية",d:"متوسط"},
+      {q:"كم كان عمر النبي ﷺ عندما نزل عليه الوحي؟",a:"40 سنة",o:["25 سنة","35 سنة","40 سنة","45 سنة"],c:"السيرة النبوية",d:"سهل"},
+      {q:"في أي غار نزل الوحي أول مرة؟",a:"غار حراء",o:["غار ثور","غار حراء","غار أحد","غار النور"],c:"السيرة النبوية",d:"سهل"},
+      {q:"من أول زوجات النبي ﷺ؟",a:"خديجة بنت خويلد رضي الله عنها",o:["عائشة رضي الله عنها","حفصة رضي الله عنها","خديجة بنت خويلد رضي الله عنها","زينب رضي الله عنها"],c:"السيرة النبوية",d:"سهل"},
+      {q:"من رافق النبي ﷺ في الهجرة إلى المدينة؟",a:"أبو بكر الصديق رضي الله عنه",o:["عمر بن الخطاب رضي الله عنه","علي بن أبي طالب رضي الله عنه","أبو بكر الصديق رضي الله عنه","عثمان بن عفان رضي الله عنه"],c:"السيرة النبوية",d:"سهل"},
+      {q:"ما اسم الغار الذي اختبأ فيه النبي ﷺ وصاحبه أثناء الهجرة؟",a:"غار ثور",o:["غار حراء","غار ثور","غار أحد","غار النور"],c:"السيرة النبوية",d:"متوسط"},
+      {q:"ما أول مسجد بناه النبي ﷺ بعد الهجرة؟",a:"مسجد قباء",o:["المسجد الحرام","المسجد النبوي","مسجد قباء","المسجد الأقصى"],c:"السيرة النبوية",d:"متوسط"},
+      {q:"ما اسم العام الذي وُلد فيه النبي ﷺ؟",a:"عام الفيل",o:["عام الحزن","عام الوفود","عام الفيل","عام الهجرة"],c:"السيرة النبوية",d:"سهل"},
+      {q:"كم سنة تقريبًا استمرت الدعوة النبوية في مكة قبل الهجرة؟",a:"13 سنة",o:["10 سنوات","13 سنة","15 سنة","20 سنة"],c:"السيرة النبوية",d:"متوسط"},
+      {q:"ما اسم ابنة النبي ﷺ التي كانت زوجة عثمان بن عفان رضي الله عنه؟",a:"رقية رضي الله عنها",o:["زينب رضي الله عنها","فاطمة رضي الله عنها","رقية رضي الله عنها","أم كلثوم رضي الله عنها"],c:"السيرة النبوية",d:"صعب"},
+      {q:"ما اسم آخر غزوة كبرى قادها النبي ﷺ؟",a:"غزوة تبوك",o:["غزوة بدر","غزوة حنين","غزوة أحد","غزوة تبوك"],c:"السيرة النبوية",d:"صعب"},
+
+      // العبادات
+      {q:"كم عدد الصلوات المفروضة في اليوم والليلة؟",a:"خمس صلوات",o:["ثلاث صلوات","أربع صلوات","خمس صلوات","ست صلوات"],c:"العبادات",d:"سهل"},
+      {q:"كم عدد أركان الإسلام؟",a:"خمسة",o:["ثلاثة","أربعة","خمسة","ستة"],c:"العبادات",d:"سهل"},
+      {q:"ما الركن الذي يأتي بعد الشهادتين في أركان الإسلام؟",a:"إقامة الصلاة",o:["إيتاء الزكاة","إقامة الصلاة","صوم رمضان","حج البيت"],c:"العبادات",d:"متوسط"},
+      {q:"في أي شهر يصوم المسلمون؟",a:"رمضان",o:["رجب","شعبان","رمضان","ذو الحجة"],c:"العبادات",d:"سهل"},
+      {q:"إلى أي جهة يتجه المسلمون في الصلاة؟",a:"الكعبة المشرفة",o:["المسجد النبوي","المسجد الأقصى","الكعبة المشرفة","جبل عرفات"],c:"العبادات",d:"سهل"},
+      {q:"كم ركعة في صلاة الفجر المفروضة؟",a:"ركعتان",o:["ركعة واحدة","ركعتان","ثلاث ركعات","أربع ركعات"],c:"العبادات",d:"سهل"},
+      {q:"كم ركعة في صلاة المغرب المفروضة؟",a:"ثلاث ركعات",o:["ركعتان","ثلاث ركعات","أربع ركعات","خمس ركعات"],c:"العبادات",d:"سهل"},
+      {q:"ما العبادة التي تُؤدّى في مكة في وقت مخصوص من السنة؟",a:"الحج",o:["الاعتكاف","الحج","الوضوء","صلاة الكسوف"],c:"العبادات",d:"سهل"},
+      {q:"ما اسم الماء المبارك الموجود في مكة؟",a:"ماء زمزم",o:["ماء زمزم","ماء الكوثر","ماء النيل","ماء عرفة"],c:"العبادات",d:"سهل"},
+      {q:"ما الصلاة التي تُصلّى عند حدوث كسوف الشمس؟",a:"صلاة الكسوف",o:["صلاة الاستسقاء","صلاة الوتر","صلاة الكسوف","صلاة الضحى"],c:"العبادات",d:"متوسط"},
+      {q:"ما المقصود بالتيمم؟",a:"استعمال الصعيد الطيب بدل الوضوء أو الغسل عند وجود عذر شرعي",o:["غسل القدمين فقط","استعمال الصعيد الطيب بدل الوضوء أو الغسل عند وجود عذر شرعي","الصلاة دون طهارة مطلقًا","الاغتسال بالماء البارد"],c:"العبادات",d:"صعب"},
+      {q:"ما اسم الصلاة التي تُؤدّى لطلب نزول المطر؟",a:"صلاة الاستسقاء",o:["صلاة الكسوف","صلاة الاستسقاء","صلاة العيد","صلاة التراويح"],c:"العبادات",d:"متوسط"},
+      {q:"ما الليلة التي يتحرّاها المسلمون في العشر الأواخر من رمضان؟",a:"ليلة القدر",o:["ليلة الإسراء فقط","ليلة القدر","ليلة الجمعة فقط","ليلة النصف من شعبان"],c:"العبادات",d:"متوسط"},
+
+      // الصحابة
+      {q:"من أول الخلفاء الراشدين؟",a:"أبو بكر الصديق رضي الله عنه",o:["عمر بن الخطاب رضي الله عنه","عثمان بن عفان رضي الله عنه","أبو بكر الصديق رضي الله عنه","علي بن أبي طالب رضي الله عنه"],c:"الصحابة",d:"سهل"},
+      {q:"من لُقّب بالفاروق؟",a:"عمر بن الخطاب رضي الله عنه",o:["أبو بكر الصديق رضي الله عنه","عمر بن الخطاب رضي الله عنه","عثمان بن عفان رضي الله عنه","خالد بن الوليد رضي الله عنه"],c:"الصحابة",d:"سهل"},
+      {q:"من لُقّب بذي النورين؟",a:"عثمان بن عفان رضي الله عنه",o:["علي بن أبي طالب رضي الله عنه","طلحة بن عبيد الله رضي الله عنه","عثمان بن عفان رضي الله عنه","عبد الرحمن بن عوف رضي الله عنه"],c:"الصحابة",d:"متوسط"},
+      {q:"من ابن عم النبي ﷺ وزوج ابنته فاطمة؟",a:"علي بن أبي طالب رضي الله عنه",o:["علي بن أبي طالب رضي الله عنه","العباس بن عبد المطلب رضي الله عنه","أبو هريرة رضي الله عنه","زيد بن حارثة رضي الله عنه"],c:"الصحابة",d:"سهل"},
+      {q:"من الصحابي الذي كان مؤذن الرسول ﷺ؟",a:"بلال بن رباح رضي الله عنه",o:["أبو هريرة رضي الله عنه","بلال بن رباح رضي الله عنه","سلمان الفارسي رضي الله عنه","أنس بن مالك رضي الله عنه"],c:"الصحابة",d:"سهل"},
+      {q:"من الصحابي الذي لُقّب بسيف الله المسلول؟",a:"خالد بن الوليد رضي الله عنه",o:["عمر بن الخطاب رضي الله عنه","خالد بن الوليد رضي الله عنه","سعد بن أبي وقاص رضي الله عنه","الزبير بن العوام رضي الله عنه"],c:"الصحابة",d:"متوسط"},
+      {q:"من الصحابي المعروف بكثرة رواية الحديث؟",a:"أبو هريرة رضي الله عنه",o:["أبو هريرة رضي الله عنه","بلال بن رباح رضي الله عنه","أبو ذر الغفاري رضي الله عنه","مصعب بن عمير رضي الله عنه"],c:"الصحابة",d:"متوسط"},
+      {q:"من الصحابي الذي نام في فراش النبي ﷺ ليلة الهجرة؟",a:"علي بن أبي طالب رضي الله عنه",o:["أبو بكر الصديق رضي الله عنه","علي بن أبي طالب رضي الله عنه","عمر بن الخطاب رضي الله عنه","عثمان بن عفان رضي الله عنه"],c:"الصحابة",d:"متوسط"},
+      {q:"من الصحابي الذي اشتهر بلقب أمين الأمة؟",a:"أبو عبيدة بن الجراح رضي الله عنه",o:["أبو عبيدة بن الجراح رضي الله عنه","معاذ بن جبل رضي الله عنه","زيد بن ثابت رضي الله عنه","سعد بن معاذ رضي الله عنه"],c:"الصحابة",d:"صعب"},
+      {q:"من الصحابي الذي أشار بحفر الخندق؟",a:"سلمان الفارسي رضي الله عنه",o:["سلمان الفارسي رضي الله عنه","أبو هريرة رضي الله عنه","بلال بن رباح رضي الله عنه","عبد الله بن مسعود رضي الله عنه"],c:"الصحابة",d:"صعب"},
+      {q:"من الصحابي الذي جمع القرآن في مصحف في عهد أبي بكر بأمره؟",a:"زيد بن ثابت رضي الله عنه",o:["زيد بن ثابت رضي الله عنه","خالد بن الوليد رضي الله عنه","بلال بن رباح رضي الله عنه","أبو عبيدة بن الجراح رضي الله عنه"],c:"الصحابة",d:"صعب"},
+
+      // معلومات إسلامية
+      {q:"كم عدد أركان الإيمان؟",a:"ستة",o:["أربعة","خمسة","ستة","سبعة"],c:"معلومات إسلامية",d:"سهل"},
+      {q:"ما الكتاب الذي أُنزل على موسى عليه السلام؟",a:"التوراة",o:["الإنجيل","الزبور","التوراة","القرآن"],c:"معلومات إسلامية",d:"سهل"},
+      {q:"ما الكتاب الذي أُنزل على داود عليه السلام؟",a:"الزبور",o:["التوراة","الزبور","الإنجيل","القرآن"],c:"معلومات إسلامية",d:"متوسط"},
+      {q:"ما الكتاب الذي أُنزل على عيسى عليه السلام؟",a:"الإنجيل",o:["الإنجيل","التوراة","الزبور","القرآن"],c:"معلومات إسلامية",d:"سهل"},
+      {q:"ما اسم الملك الموكّل بالوحي؟",a:"جبريل عليه السلام",o:["ميكائيل عليه السلام","إسرافيل عليه السلام","جبريل عليه السلام","مالك عليه السلام"],c:"معلومات إسلامية",d:"سهل"},
+      {q:"ما اسم الملك الموكّل بالنفخ في الصور؟",a:"إسرافيل عليه السلام",o:["جبريل عليه السلام","إسرافيل عليه السلام","ميكائيل عليه السلام","مالك عليه السلام"],c:"معلومات إسلامية",d:"متوسط"},
+      {q:"ما الشهر الذي يسبق رمضان؟",a:"شعبان",o:["رجب","شعبان","شوال","محرم"],c:"معلومات إسلامية",d:"سهل"},
+      {q:"ما الشهر الذي يأتي بعد رمضان؟",a:"شوال",o:["شعبان","ذو القعدة","شوال","محرم"],c:"معلومات إسلامية",d:"سهل"},
+      {q:"ما أول الأشهر الحُرم في السنة الهجرية؟",a:"محرم",o:["رمضان","محرم","رجب","ذو الحجة"],c:"معلومات إسلامية",d:"متوسط"},
+      {q:"كم عدد الأشهر الحُرم؟",a:"أربعة",o:["ثلاثة","أربعة","خمسة","ستة"],c:"معلومات إسلامية",d:"متوسط"},
+      {q:"ما اسم الليلة التي أُسري فيها بالنبي ﷺ من المسجد الحرام إلى المسجد الأقصى؟",a:"ليلة الإسراء",o:["ليلة القدر","ليلة الإسراء","ليلة بدر","ليلة الهجرة"],c:"معلومات إسلامية",d:"متوسط"},
+      {q:"ما القبلة الأولى للمسلمين؟",a:"المسجد الأقصى",o:["الكعبة المشرفة","المسجد النبوي","المسجد الأقصى","مسجد قباء"],c:"معلومات إسلامية",d:"سهل"},
+      {q:"ما اسم والد إبراهيم عليه السلام كما ورد في القرآن؟",a:"آزر",o:["آزر","عمران","عبد الله","يعقوب"],c:"معلومات إسلامية",d:"صعب"},
+      {q:"ما اسم أم موسى عليه السلام؟",a:"لم يذكر القرآن اسمها",o:["يوكابد بنص القرآن","آسية","لم يذكر القرآن اسمها","مريم"],c:"معلومات إسلامية",d:"صعب"},
+      {q:"ما معنى الإحسان في حديث جبريل؟",a:"أن تعبد الله كأنك تراه، فإن لم تكن تراه فإنه يراك",o:["أن تتصدق فقط","أن تصوم كل يوم","أن تعبد الله كأنك تراه، فإن لم تكن تراه فإنه يراك","أن تحج كل عام"],c:"معلومات إسلامية",d:"صعب"},
+      {q:"ما اسم خازن النار كما ورد في القرآن؟",a:"مالك",o:["رضوان","مالك","جبريل","ميكائيل"],c:"معلومات إسلامية",d:"صعب"}
+    ];
+
+
+    // 180 independent textbook questions, 9 questions for each of the first 20 lessons.
+    // Reference: mirrored 1446 textbook content and 1448 lesson index. Not a formal 1448-edition certification.
+    const textbookLessons = [{"id":"L01","name":"الإيمان بالقدر","section":"التوحيد","count":9,"reference":"https://sahl.io/sa/book/725/ثالث-متوسط/الدراسات-الإسلامية"},{"id":"L02","name":"الحذر من الضلال في القدر","section":"التوحيد","count":9,"reference":"https://sahl.io/sa/book/725/ثالث-متوسط/الدراسات-الإسلامية"},{"id":"L03","name":"الصبر","section":"التوحيد","count":9,"reference":"https://sahl.io/sa/book/725/ثالث-متوسط/الدراسات-الإسلامية"},{"id":"L04","name":"استعمال (لو) في الكلام","section":"التوحيد","count":9,"reference":"https://sahl.io/sa/book/725/ثالث-متوسط/الدراسات-الإسلامية"},{"id":"L05","name":"نسبة النعم","section":"التوحيد","count":9,"reference":"https://sahl.io/sa/book/725/ثالث-متوسط/الدراسات-الإسلامية"},{"id":"L06","name":"سب الدهر","section":"التوحيد","count":9,"reference":"https://sahl.io/sa/book/725/ثالث-متوسط/الدراسات-الإسلامية"},{"id":"L07","name":"سب الريح","section":"التوحيد","count":9,"reference":"https://sahl.io/sa/book/725/ثالث-متوسط/الدراسات-الإسلامية"},{"id":"L08","name":"السحر","section":"التوحيد","count":9,"reference":"https://sahl.io/sa/book/725/ثالث-متوسط/الدراسات-الإسلامية"},{"id":"L09","name":"الواجب تجاه السحر والسحرة","section":"التوحيد","count":9,"reference":"https://sahl.io/sa/book/725/ثالث-متوسط/الدراسات-الإسلامية"},{"id":"L10","name":"الكهانة والعرافة","section":"التوحيد","count":9,"reference":"https://sahl.io/sa/book/725/ثالث-متوسط/الدراسات-الإسلامية"},{"id":"L11","name":"التنجيم","section":"التوحيد","count":9,"reference":"https://sahl.io/sa/book/725/ثالث-متوسط/الدراسات-الإسلامية"},{"id":"L12","name":"أبراج الحظ","section":"التوحيد","count":9,"reference":"https://sahl.io/sa/book/725/ثالث-متوسط/الدراسات-الإسلامية"},{"id":"L13","name":"الاستسقاء بالأنواء","section":"التوحيد","count":9,"reference":"https://sahl.io/sa/book/725/ثالث-متوسط/الدراسات-الإسلامية"},{"id":"L14","name":"تفسير الآيات (1-5) من سورة الحجرات","section":"التفسير","count":9,"reference":"https://sahl.io/sa/book/725/ثالث-متوسط/الدراسات-الإسلامية"},{"id":"L15","name":"تفسير الآيات (6-10) من سورة الحجرات","section":"التفسير","count":9,"reference":"https://sahl.io/sa/book/725/ثالث-متوسط/الدراسات-الإسلامية"},{"id":"L16","name":"تفسير الآيات (11-14) من سورة الحجرات","section":"التفسير","count":9,"reference":"https://sahl.io/sa/book/725/ثالث-متوسط/الدراسات-الإسلامية"},{"id":"L17","name":"تفسير الآيات (1-8) من سورة الكهف","section":"التفسير","count":9,"reference":"https://sahl.io/sa/book/725/ثالث-متوسط/الدراسات-الإسلامية"},{"id":"L18","name":"تفسير الآيات (9-16) من سورة الكهف","section":"التفسير","count":9,"reference":"https://sahl.io/sa/book/725/ثالث-متوسط/الدراسات-الإسلامية"},{"id":"L19","name":"تفسير الآيات (17-20) من سورة الكهف","section":"التفسير","count":9,"reference":"https://sahl.io/sa/book/725/ثالث-متوسط/الدراسات-الإسلامية"},{"id":"L20","name":"تفسير الآيات (21-26) من سورة الكهف","section":"التفسير","count":9,"reference":"https://sahl.io/sa/book/725/ثالث-متوسط/الدراسات-الإسلامية"}];
+    const textbookQuestions = [{"id":"L01-Q01","lessonId":"L01","q":"ما تعريف القدر في الدرس؟","a":"علم الله بالأشياء قبل حدوثها وكتابتها ومشيئته وخلقه لها","o":["علم الله بالأشياء قبل حدوثها وكتابتها ومشيئته وخلقه لها","معرفة الإنسان بما سيحدث غدًا","وقوع الأشياء بلا علم سابق","اختيار الإنسان دون مشيئة الله"],"c":"التوحيد","d":"سهل","origin":"textbook"},{"id":"L01-Q02","lessonId":"L01","q":"ما حكم الإيمان بالقدر؟","a":"واجب وركن من أركان الإيمان","o":["واجب وركن من أركان الإيمان","مستحب فقط","مباح دون أهمية","مكروه"],"c":"التوحيد","d":"سهل","origin":"textbook"},{"id":"L01-Q03","lessonId":"L01","q":"كم مرتبة للقضاء والقدر؟","a":"أربع مراتب","o":["أربع مراتب","مرتبتان","ثلاث مراتب","خمس مراتب"],"c":"التوحيد","d":"سهل","origin":"textbook"},{"id":"L01-Q04","lessonId":"L01","q":"ما المرتبة الأولى من مراتب القدر؟","a":"العلم","o":["العلم","الكتابة","المشيئة","الخلق"],"c":"التوحيد","d":"متوسط","origin":"textbook"},{"id":"L01-Q05","lessonId":"L01","q":"ما المرتبة الثانية من مراتب القدر؟","a":"الكتابة","o":["الكتابة","الخلق","العلم","المشيئة"],"c":"التوحيد","d":"متوسط","origin":"textbook"},{"id":"L01-Q06","lessonId":"L01","q":"ما المرتبة الثالثة من مراتب القدر؟","a":"المشيئة","o":["المشيئة","العلم","الخلق","الكتابة"],"c":"التوحيد","d":"متوسط","origin":"textbook"},{"id":"L01-Q07","lessonId":"L01","q":"ما المرتبة الرابعة من مراتب القدر؟","a":"الخلق","o":["الخلق","العلم","الكتابة","المشيئة"],"c":"التوحيد","d":"صعب","origin":"textbook"},{"id":"L01-Q08","lessonId":"L01","q":"أين كتب الله مقادير كل شيء؟","a":"في اللوح المحفوظ","o":["في اللوح المحفوظ","في كتاب الأعمال يوم القيامة","في صحف الملائكة فقط","في كتب البشر"],"c":"التوحيد","d":"صعب","origin":"textbook"},{"id":"L01-Q09","lessonId":"L01","q":"قبل خلق السماوات والأرض بكم سنة كتب الله مقادير الخلائق؟","a":"بخمسين ألف سنة","o":["بخمسين ألف سنة","بألف سنة","بمئة سنة","بعشرة آلاف سنة"],"c":"التوحيد","d":"صعب","origin":"textbook"},{"id":"L02-Q01","lessonId":"L02","q":"ما حكم إنكار القدر كما في الدرس؟","a":"كفر","o":["كفر","مكروه فقط","جائز","مستحب"],"c":"التوحيد","d":"سهل","origin":"textbook"},{"id":"L02-Q02","lessonId":"L02","q":"لماذا عُدّ إنكار القدر كفرًا؟","a":"لأنه يتضمن تكذيب الكتاب والسنة","o":["لأنه يتضمن تكذيب الكتاب والسنة","لأنه مخالفة للعادات فقط","لأنه يترك أمرًا مستحبًا","لأنه يمنع العمل الدنيوي"],"c":"التوحيد","d":"سهل","origin":"textbook"},{"id":"L02-Q03","lessonId":"L02","q":"أي حديث يذكر الإيمان بالقدر خيره وشره ضمن الإيمان؟","a":"حديث جبريل","o":["حديث جبريل","حديث النية فقط","حديث إنما الأعمال بالخواتيم","حديث تبسمك صدقة"],"c":"التوحيد","d":"سهل","origin":"textbook"},{"id":"L02-Q04","lessonId":"L02","q":"ما حكم الخصومة والجدال المذموم في القدر؟","a":"منهي عنه","o":["منهي عنه","واجب على كل مسلم","مستحب دائمًا","لا حكم له"],"c":"التوحيد","d":"متوسط","origin":"textbook"},{"id":"L02-Q05","lessonId":"L02","q":"ما الموقف الصحيح مما خفي من حكمة القضاء والقدر؟","a":"التسليم لله وحكمته وعدله","o":["التسليم لله وحكمته وعدله","الاعتراض على الله","التسخط الدائم","اتهام الناس بلا دليل"],"c":"التوحيد","d":"متوسط","origin":"textbook"},{"id":"L02-Q06","lessonId":"L02","q":"لماذا قد تكون المجادلة في خفايا القدر فتنة؟","a":"لقصور فهم العقول عن بعض الأمور الخفية","o":["لقصور فهم العقول عن بعض الأمور الخفية","لأن كل إنسان يعرف الغيب","لأن القدر لا يتعلق بالإيمان","لأن التسليم لله ممنوع"],"c":"التوحيد","d":"متوسط","origin":"textbook"},{"id":"L02-Q07","lessonId":"L02","q":"هل يجوز الاحتجاج بالقدر لتبرير المعاصي؟","a":"لا يجوز","o":["لا يجوز","يجوز دائمًا","يجب ذلك","يستحب عند كل معصية"],"c":"التوحيد","d":"صعب","origin":"textbook"},{"id":"L02-Q08","lessonId":"L02","q":"لماذا لا يصح الاحتجاج بالقدر على ترك الواجب؟","a":"لأن الله بيّن طريق الخير وأمر به وأقدر الناس عليه","o":["لأن الله بيّن طريق الخير وأمر به وأقدر الناس عليه","لأن الإنسان يعرف الغيب","لأن الطاعة غير مأمور بها","لأن العمل لا أثر له"],"c":"التوحيد","d":"صعب","origin":"textbook"},{"id":"L02-Q09","lessonId":"L02","q":"أي موقف يوافق درس الحذر من الضلال في القدر؟","a":"أعمل بالطاعة وأتوب من الخطأ","o":["أعمل بالطاعة وأتوب من الخطأ","أترك الصلاة بحجة القدر","أبرر الظلم بالقدر","أجادل في الغيب بغير علم"],"c":"التوحيد","d":"صعب","origin":"textbook"},{"id":"L03-Q01","lessonId":"L03","q":"ما تعريف الصبر في الدرس؟","a":"حبس النفس عن المحارم وعلى الفرائض وعن التسخط","o":["حبس النفس عن المحارم وعلى الفرائض وعن التسخط","ترك جميع الأعمال","كتمان الحق دائمًا","عدم الشعور بالحزن إطلاقًا"],"c":"التوحيد","d":"سهل","origin":"textbook"},{"id":"L03-Q02","lessonId":"L03","q":"كم نوعًا للصبر ورد في الدرس؟","a":"ثلاثة أنواع","o":["ثلاثة أنواع","نوع واحد","نوعان","خمسة أنواع"],"c":"التوحيد","d":"سهل","origin":"textbook"},{"id":"L03-Q03","lessonId":"L03","q":"ما مثال الصبر على طاعة الله؟","a":"المحافظة على الصيام","o":["المحافظة على الصيام","تعمد الكذب","ترك الفرائض","الاعتداء على الآخرين"],"c":"التوحيد","d":"سهل","origin":"textbook"},{"id":"L03-Q04","lessonId":"L03","q":"ما مثال الصبر عن معصية الله؟","a":"ترك الغيبة مع القدرة عليها","o":["ترك الغيبة مع القدرة عليها","تأخير الصلاة عمدًا","الإصرار على الذنب","الاعتداء على المال"],"c":"التوحيد","d":"متوسط","origin":"textbook"},{"id":"L03-Q05","lessonId":"L03","q":"ما مثال الصبر على أقدار الله؟","a":"ترك الجزع والتسخط عند المصيبة","o":["ترك الجزع والتسخط عند المصيبة","لطم الخدود","شق الجيوب تسخطًا","سب القدر"],"c":"التوحيد","d":"متوسط","origin":"textbook"},{"id":"L03-Q06","lessonId":"L03","q":"ما حكم الصبر الواجب المذكور في الدرس؟","a":"واجب","o":["واجب","حرام","مكروه","مباح فقط"],"c":"التوحيد","d":"متوسط","origin":"textbook"},{"id":"L03-Q07","lessonId":"L03","q":"هل دموع الحزن دون جزع تنافي الصبر؟","a":"لا تنافيه","o":["لا تنافيه","تبطل الصبر دائمًا","تعد كفرًا","تحرم مطلقًا"],"c":"التوحيد","d":"صعب","origin":"textbook"},{"id":"L03-Q08","lessonId":"L03","q":"ما حكم الجزع والتسخط عند المصيبة؟","a":"محرم","o":["محرم","واجب","مستحب","لا إثم فيه"],"c":"التوحيد","d":"صعب","origin":"textbook"},{"id":"L03-Q09","lessonId":"L03","q":"ما جزاء الصابرين كما في سورة الزمر؟","a":"يوفَّون أجرهم بغير حساب","o":["يوفَّون أجرهم بغير حساب","لا أجر لهم","تنقص حسناتهم","لا ينالون الرحمة"],"c":"التوحيد","d":"صعب","origin":"textbook"},{"id":"L04-Q01","lessonId":"L04","q":"ما نوع استعمال «لو» للتحسر والتسخط على قدر مضى؟","a":"استعمال محرم","o":["استعمال محرم","استعمال واجب","استعمال مستحب","استعمال مباح دائمًا"],"c":"التوحيد","d":"سهل","origin":"textbook"},{"id":"L04-Q02","lessonId":"L04","q":"ما حكم قول «لو كان لي مال لتصدقت» بصدق النية؟","a":"جائز","o":["جائز","محرم مطلقًا","شرك أكبر","واجب في كل حال"],"c":"التوحيد","d":"سهل","origin":"textbook"},{"id":"L04-Q03","lessonId":"L04","q":"ما حكم استعمال «لو» في ماضٍ من غير تسخط؟","a":"جائز","o":["جائز","محرم في جميع الصور","كفر أكبر","واجب دائمًا"],"c":"التوحيد","d":"سهل","origin":"textbook"},{"id":"L04-Q04","lessonId":"L04","q":"ما العبارة المشروعة عند وقوع المصيبة؟","a":"قدر الله وما شاء فعل","o":["قدر الله وما شاء فعل","لو أنني فعلت لما وقع شيء","الزمن هو الفاعل","لا معنى للصبر"],"c":"التوحيد","d":"متوسط","origin":"textbook"},{"id":"L04-Q05","lessonId":"L04","q":"ما اسم قول «إنا لله وإنا إليه راجعون» عند المصيبة؟","a":"الاسترجاع","o":["الاسترجاع","الاستسقاء","الاستغاثة","الاستفتاح"],"c":"التوحيد","d":"متوسط","origin":"textbook"},{"id":"L04-Q06","lessonId":"L04","q":"ما الحكمة من النهي عن «لو» للتسخط؟","a":"لأنها تفتح عمل الشيطان وتنافي التسليم","o":["لأنها تفتح عمل الشيطان وتنافي التسليم","لأنها تمنع التعلم","لأنها تبطل كل دعاء","لأنها تمنع التجارة"],"c":"التوحيد","d":"متوسط","origin":"textbook"},{"id":"L04-Q07","lessonId":"L04","q":"أي مثال يعد استعمالًا مباحًا لـ«لو»؟","a":"لو درست بالأمس لاستفدت","o":["لو درست بالأمس لاستفدت","لو لم يحدث القدر لما حزنت مع الاعتراض","لو كان الزمن بيدي لمنعت قضاء الله","لو شاء الله غير ما قضى لتغير بقوتي"],"c":"التوحيد","d":"صعب","origin":"textbook"},{"id":"L04-Q08","lessonId":"L04","q":"ما الذي يُنهى عنه في استعمال «لو»؟","a":"الاعتراض على القضاء والقدر","o":["الاعتراض على القضاء والقدر","التخطيط لمستقبل الخير","تمني فعل طاعة","التعلم من تجربة ماضية"],"c":"التوحيد","d":"صعب","origin":"textbook"},{"id":"L04-Q09","lessonId":"L04","q":"ما البديل عن الاعتراض عند فقد شيء؟","a":"الحمد لله والتسليم لقضائه","o":["الحمد لله والتسليم لقضائه","سب الأيام","اتهام القدر","الجزع من كل مصيبة"],"c":"التوحيد","d":"صعب","origin":"textbook"},{"id":"L05-Q01","lessonId":"L05","q":"لمن تُنسب النعم في الحقيقة؟","a":"لله تعالى","o":["لله تعالى","للنجوم","للحظ وحده","للأشخاص استقلالًا"],"c":"التوحيد","d":"سهل","origin":"textbook"},{"id":"L05-Q02","lessonId":"L05","q":"ما واجب المسلم تجاه نعم الله؟","a":"شكر الله بالقلب واللسان والجوارح","o":["شكر الله بالقلب واللسان والجوارح","جحدها","استعمالها في المعصية","نسبتها للحظ"],"c":"التوحيد","d":"سهل","origin":"textbook"},{"id":"L05-Q03","lessonId":"L05","q":"كيف يكون شكر النعمة بالجوارح؟","a":"استعمالها في طاعة الله","o":["استعمالها في طاعة الله","إهدارها","إيذاء الناس بها","التفاخر المؤذي"],"c":"التوحيد","d":"سهل","origin":"textbook"},{"id":"L05-Q04","lessonId":"L05","q":"ما الواجب تجاه من أحسن إلينا من الناس؟","a":"شكره والثناء عليه والدعاء له","o":["شكره والثناء عليه والدعاء له","جحد معروفه","الإساءة إليه","اتهامه بالكذب"],"c":"التوحيد","d":"متوسط","origin":"textbook"},{"id":"L05-Q05","lessonId":"L05","q":"ما حكم اعتقاد أن غير الله يخلق النعم استقلالًا؟","a":"كفر أكبر","o":["كفر أكبر","مستحب","مباح","مكروه فقط"],"c":"التوحيد","d":"متوسط","origin":"textbook"},{"id":"L05-Q06","lessonId":"L05","q":"ما حكم نسبة النعم إلى سبب باللسان مع نسيان المنعم الحقيقي؟","a":"كفر أصغر يسمى كفر النعمة","o":["كفر أصغر يسمى كفر النعمة","عبادة واجبة","أمر مستحب","لا صلة له بالتوحيد"],"c":"التوحيد","d":"متوسط","origin":"textbook"},{"id":"L05-Q07","lessonId":"L05","q":"ما العبارة الصحيحة بعد النجاح؟","a":"الحمد لله الذي أعانني على الاجتهاد","o":["الحمد لله الذي أعانني على الاجتهاد","نجحت بذكائي وحدي دون فضل من الله","الحظ خلق نجاحي","النجم هو الذي نجحني"],"c":"التوحيد","d":"صعب","origin":"textbook"},{"id":"L05-Q08","lessonId":"L05","q":"أي عبارة تقر بأن المطر من نعمة الله؟","a":"مطرنا بفضل الله ورحمته","o":["مطرنا بفضل الله ورحمته","مطرنا لأن النجم خلق المطر","مطرنا بقدرة البرج وحده","الكوكب أنزل الغيث بنفسه"],"c":"التوحيد","d":"صعب","origin":"textbook"},{"id":"L05-Q09","lessonId":"L05","q":"ما منزلة الناس الذين يقدمون المعروف للآخرين؟","a":"أسباب يجري الله النعم على أيديهم","o":["أسباب يجري الله النعم على أيديهم","هم خالقو النعم","يستغنون عن الله","لا يجوز شكرهم"],"c":"التوحيد","d":"صعب","origin":"textbook"},{"id":"L06-Q01","lessonId":"L06","q":"ما المقصود بالدهر؟","a":"الزمان","o":["الزمان","الريح","المطر","النجوم"],"c":"التوحيد","d":"سهل","origin":"textbook"},{"id":"L06-Q02","lessonId":"L06","q":"ما المقصود بسب الدهر؟","a":"شتم الزمان أو عيبه أو لعنه","o":["شتم الزمان أو عيبه أو لعنه","وصف الطقس بأنه حار","تحديد موعد اللقاء","ذكر تاريخ اليوم"],"c":"التوحيد","d":"سهل","origin":"textbook"},{"id":"L06-Q03","lessonId":"L06","q":"ما حكم سب الدهر؟","a":"حرام","o":["حرام","مستحب","واجب","مباح مطلقًا"],"c":"التوحيد","d":"سهل","origin":"textbook"},{"id":"L06-Q04","lessonId":"L06","q":"أي عبارة تعد من سب الدهر؟","a":"الزمن غدار","o":["الزمن غدار","اليوم شديد الحر","هذه أيام باردة","العام قليل المطر"],"c":"التوحيد","d":"متوسط","origin":"textbook"},{"id":"L06-Q05","lessonId":"L06","q":"أي عبارة خبر عن الدهر وليست سبًا؟","a":"هذا يوم شديد البرودة","o":["هذا يوم شديد البرودة","يا لعن هذا الزمن","هذه ساعة مشؤومة","الزمن هو سبب الشر استقلالًا"],"c":"التوحيد","d":"متوسط","origin":"textbook"},{"id":"L06-Q06","lessonId":"L06","q":"من الذي يقلب الليل والنهار؟","a":"الله تعالى","o":["الله تعالى","الزمان مستقلًا","الإنسان","الكواكب دون مشيئة الله"],"c":"التوحيد","d":"متوسط","origin":"textbook"},{"id":"L06-Q07","lessonId":"L06","q":"ما معنى «وأنا الدهر» في الحديث القدسي؟","a":"أن الله خالق الدهر والمتصرف فيه","o":["أن الله خالق الدهر والمتصرف فيه","أن الزمان هو الله","أن الأيام معبودة","أن الدهر يعلم الغيب"],"c":"التوحيد","d":"صعب","origin":"textbook"},{"id":"L06-Q08","lessonId":"L06","q":"لماذا حرم سب الدهر؟","a":"لأنه اعتراض على قضاء الله والدهر لا يملك الأمر","o":["لأنه اعتراض على قضاء الله والدهر لا يملك الأمر","لأنه يمنع حساب السنين","لأنه يحرم وصف الطقس","لأنه يجعل الوقت أطول"],"c":"التوحيد","d":"صعب","origin":"textbook"},{"id":"L06-Q09","lessonId":"L06","q":"ما حكم نسبة الحوادث إلى الدهر على أنه الفاعل لها استقلالًا؟","a":"كفر من اعتقاد الجاهلية","o":["كفر من اعتقاد الجاهلية","مستحب","قول مأمور به","مباح"],"c":"التوحيد","d":"صعب","origin":"textbook"},{"id":"L07-Q01","lessonId":"L07","q":"ما المراد بسب الريح؟","a":"شتم الريح أو لعنها أو التسخط منها","o":["شتم الريح أو لعنها أو التسخط منها","بيان سرعة الريح","وصفها بالقوة","التحذير من عاصفة"],"c":"التوحيد","d":"سهل","origin":"textbook"},{"id":"L07-Q02","lessonId":"L07","q":"ما حكم سب الريح؟","a":"حرام","o":["حرام","واجب","مستحب","مباح دائمًا"],"c":"التوحيد","d":"سهل","origin":"textbook"},{"id":"L07-Q03","lessonId":"L07","q":"لماذا نُهي عن سب الريح؟","a":"لأنها خلق مسخر بأمر الله","o":["لأنها خلق مسخر بأمر الله","لأن الريح تستقل بتدبير الكون","لأن وصفها ممنوع","لأنها تعرف الغيب"],"c":"التوحيد","d":"سهل","origin":"textbook"},{"id":"L07-Q04","lessonId":"L07","q":"أي عبارة وصف مباح لا سب فيها؟","a":"هذه ريح شديدة","o":["هذه ريح شديدة","لعنة على الريح","ما أخبث هذا الخلق","يا ريح أنت سبب الشر استقلالًا"],"c":"التوحيد","d":"متوسط","origin":"textbook"},{"id":"L07-Q05","lessonId":"L07","q":"ماذا يُشرع قوله إذا عصفت الريح؟","a":"سؤال الله خيرها والاستعاذة به من شرها","o":["سؤال الله خيرها والاستعاذة به من شرها","لعنها","الاستعاذة بالنجوم","نسبة أمرها للصدفة وحدها"],"c":"التوحيد","d":"متوسط","origin":"textbook"},{"id":"L07-Q06","lessonId":"L07","q":"أي سورة ورد فيها وصف الريح بأنها «صرصر» في مثال الدرس؟","a":"سورة القمر","o":["سورة القمر","سورة الفاتحة","سورة الكوثر","سورة الناس"],"c":"التوحيد","d":"متوسط","origin":"textbook"},{"id":"L07-Q07","lessonId":"L07","q":"من الذي يسخر الرياح؟","a":"الله تعالى","o":["الله تعالى","النجوم استقلالًا","البشر على الدوام","الزمن دون خالق"],"c":"التوحيد","d":"صعب","origin":"textbook"},{"id":"L07-Q08","lessonId":"L07","q":"أي تصرف يوافق أدب المسلم عند الريح؟","a":"الدعاء والحذر دون سب","o":["الدعاء والحذر دون سب","سبها بصوت مرتفع","الشكوى من قضاء الله","لعن من أرسلها"],"c":"التوحيد","d":"صعب","origin":"textbook"},{"id":"L07-Q09","lessonId":"L07","q":"ما الفرق بين سب الريح ووصفها؟","a":"السب ذم ولعن والوصف إخبار بحالها","o":["السب ذم ولعن والوصف إخبار بحالها","كلاهما محرم دائمًا","الوصف يعني لعنها","السب مجرد قياس سرعتها"],"c":"التوحيد","d":"صعب","origin":"textbook"},{"id":"L08-Q01","lessonId":"L08","q":"ما حكم السحر كما يقرره الدرس؟","a":"محرم وكفر بالله","o":["محرم وكفر بالله","مستحب","مباح للتسلية","واجب للعلاج"],"c":"التوحيد","d":"سهل","origin":"textbook"},{"id":"L08-Q02","lessonId":"L08","q":"في أي مجموعة من الكبائر عدّ النبي ﷺ السحر؟","a":"السبع الموبقات","o":["السبع الموبقات","السنن الرواتب","الأركان الخمسة","آداب الطعام"],"c":"التوحيد","d":"سهل","origin":"textbook"},{"id":"L08-Q03","lessonId":"L08","q":"بأي ذنب عظيم قُرن السحر في حديث السبع الموبقات؟","a":"الشرك بالله","o":["الشرك بالله","ترك الصيام تطوعًا","قلة الكلام","نسيان موعد"],"c":"التوحيد","d":"سهل","origin":"textbook"},{"id":"L08-Q04","lessonId":"L08","q":"ما وجه خطورة ادعاء الساحر معرفة المستقبل؟","a":"ادعاء علم الغيب الذي اختص الله به","o":["ادعاء علم الغيب الذي اختص الله به","لأن كل الناس يعلمون الغيب","لأنه علم فلك مباح","لأنه وصف للطقس"],"c":"التوحيد","d":"متوسط","origin":"textbook"},{"id":"L08-Q05","lessonId":"L08","q":"من الذي يعلم الغيب استقلالًا؟","a":"الله تعالى وحده","o":["الله تعالى وحده","السحرة","الكهنة","الأبراج"],"c":"التوحيد","d":"متوسط","origin":"textbook"},{"id":"L08-Q06","lessonId":"L08","q":"ما المصدر الذي ينسب إليه الدرس تعليم السحر؟","a":"الشياطين","o":["الشياطين","الأنبياء عليهم السلام","المعلمون الصالحون","علماء الفلك"],"c":"التوحيد","d":"متوسط","origin":"textbook"},{"id":"L08-Q07","lessonId":"L08","q":"من الذي يتولى معاقبة السحرة وفق النظام وأحكام الشريعة؟","a":"ولي الأمر أو من ينيبه","o":["ولي الأمر أو من ينيبه","كل شخص من تلقاء نفسه","أطفال الحي","أصدقاء الساحر"],"c":"التوحيد","d":"صعب","origin":"textbook"},{"id":"L08-Q08","lessonId":"L08","q":"ما الوصف القرآني لمآل الساحر في قوله «ولا يفلح الساحر»؟","a":"عدم الفلاح","o":["عدم الفلاح","الفوز الأكيد","العصمة من الخطأ","معرفة الغيب"],"c":"التوحيد","d":"صعب","origin":"textbook"},{"id":"L08-Q09","lessonId":"L08","q":"ما الموقف الصحيح من تعلم السحر وممارسته؟","a":"اجتنابه والتحذير منه","o":["اجتنابه والتحذير منه","تعلمه للتسلية","نشر طرقه بين الأصدقاء","تصديق ادعاءاته"],"c":"التوحيد","d":"صعب","origin":"textbook"},{"id":"L09-Q01","lessonId":"L09","q":"ما الواجب تجاه الساحر ومن يدعي ممارسة السحر؟","a":"الحذر منه وعدم تصديقه","o":["الحذر منه وعدم تصديقه","طلب مساعدته في الغيب","ترويج خدماته","نشر أعماله"],"c":"التوحيد","d":"سهل","origin":"textbook"},{"id":"L09-Q02","lessonId":"L09","q":"ما حكم الذهاب للسحرة طلبًا للعون؟","a":"محرم","o":["محرم","واجب","مستحب","مباح للتجربة"],"c":"التوحيد","d":"سهل","origin":"textbook"},{"id":"L09-Q03","lessonId":"L09","q":"ما التصرف الصحيح عند معرفة نشاط سحري مؤذٍ؟","a":"إبلاغ الجهات المختصة","o":["إبلاغ الجهات المختصة","المواجهة العنيفة من تلقاء النفس","نشر دعايته","مساعدته على الاختفاء"],"c":"التوحيد","d":"سهل","origin":"textbook"},{"id":"L09-Q04","lessonId":"L09","q":"ما الموقف الصحيح من مقاطع السحر على مواقع التواصل؟","a":"تجنبها وعدم ترويجها","o":["تجنبها وعدم ترويجها","إعادة نشرها للتسلية","تصديق أصحابها","تشجيع متابعتها"],"c":"التوحيد","d":"متوسط","origin":"textbook"},{"id":"L09-Q05","lessonId":"L09","q":"ما وسيلة الوقاية المذكورة في الدرس؟","a":"المحافظة على الأذكار الشرعية","o":["المحافظة على الأذكار الشرعية","قراءة الطالع","حمل رموز التنجيم","سؤال الكاهن"],"c":"التوحيد","d":"متوسط","origin":"textbook"},{"id":"L09-Q06","lessonId":"L09","q":"أي آية ذُكرت ضمن أذكار التحصين؟","a":"آية الكرسي","o":["آية الكرسي","آية الدين وحدها","آية المداينة دون غيرها","آية المواريث وحدها"],"c":"التوحيد","d":"متوسط","origin":"textbook"},{"id":"L09-Q07","lessonId":"L09","q":"ما السور الثلاث المذكورة ضمن أذكار التحصين؟","a":"الإخلاص والفلق والناس","o":["الإخلاص والفلق والناس","الفاتحة والبقرة وآل عمران","الكوثر والعصر والنصر","يس والملك والواقعة"],"c":"التوحيد","d":"صعب","origin":"textbook"},{"id":"L09-Q08","lessonId":"L09","q":"ما العلاج الشرعي الذي يذكره الدرس للسحر؟","a":"الرقية الشرعية والأدعية المشروعة","o":["الرقية الشرعية والأدعية المشروعة","سحر مضاد من ساحر","مراجعة العراف","تعليق رموز الأبراج"],"c":"التوحيد","d":"صعب","origin":"textbook"},{"id":"L09-Q09","lessonId":"L09","q":"متى تكون الرقية جائزة؟","a":"إذا خلت من الشرك","o":["إذا خلت من الشرك","إذا تضمنت دعاء غير الله","إذا اعتمدت على الكهانة","إذا تضمنت طلاسم مجهولة"],"c":"التوحيد","d":"صعب","origin":"textbook"},{"id":"L10-Q01","lessonId":"L10","q":"ما الكهانة في هذا الدرس؟","a":"ادعاء معرفة ما سيحدث في المستقبل","o":["ادعاء معرفة ما سيحدث في المستقبل","قياس حركة الكواكب علميًا","ذكر أحداث ماضية موثقة","سؤال الطبيب عن تشخيص"],"c":"التوحيد","d":"سهل","origin":"textbook"},{"id":"L10-Q02","lessonId":"L10","q":"ما العرافة في هذا الدرس؟","a":"ادعاء معرفة الأمور الخفية كالمسروقات والضائع","o":["ادعاء معرفة الأمور الخفية كالمسروقات والضائع","تعلم قراءة الكتب","تفسير نتائج الامتحان","تحديد اتجاه القبلة"],"c":"التوحيد","d":"سهل","origin":"textbook"},{"id":"L10-Q03","lessonId":"L10","q":"ما الفرق بين الكاهن والعراف كما في الدرس؟","a":"الكاهن يدعي معرفة المستقبل والعراف يدعي معرفة الخفايا","o":["الكاهن يدعي معرفة المستقبل والعراف يدعي معرفة الخفايا","الكاهن طبيب والعراف مهندس","كلاهما متخصص في الفلك","العراف يتنبأ بالطقس علميًا"],"c":"التوحيد","d":"سهل","origin":"textbook"},{"id":"L10-Q04","lessonId":"L10","q":"ما حكم الكهانة والعرافة القائمتين على ادعاء علم الغيب؟","a":"شرك أكبر","o":["شرك أكبر","عبادة مستحبة","علم تجريبي مباح","واجب اجتماعي"],"c":"التوحيد","d":"متوسط","origin":"textbook"},{"id":"L10-Q05","lessonId":"L10","q":"من الذي اختص بعلم الغيب؟","a":"الله تعالى","o":["الله تعالى","كل إنسان","من يقرأ الفنجان","من يعرف تاريخ الميلاد"],"c":"التوحيد","d":"متوسط","origin":"textbook"},{"id":"L10-Q06","lessonId":"L10","q":"ما حكم سؤال العراف دون تصديقه في الدرس؟","a":"لا تقبل صلاته أربعين ليلة من جهة الثواب","o":["لا تقبل صلاته أربعين ليلة من جهة الثواب","يسقط عنه فرض الصلاة","تصبح الصلاة واجبة مرة سنويًا","يزداد أجر صلاته"],"c":"التوحيد","d":"متوسط","origin":"textbook"},{"id":"L10-Q07","lessonId":"L10","q":"ماذا يفعل من سأل عرافًا رغم التحذير؟","a":"يواصل أداء الصلاة ويتوب","o":["يواصل أداء الصلاة ويتوب","يترك الصلاة أربعين يومًا","يصدق كل قوله","يذهب إليه ثانية"],"c":"التوحيد","d":"صعب","origin":"textbook"},{"id":"L10-Q08","lessonId":"L10","q":"ما حكم تصديق الكاهن في دعواه علم الغيب كما في الدرس؟","a":"كفر بما أنزل على محمد ﷺ","o":["كفر بما أنزل على محمد ﷺ","عمل مستحب","فرض كفاية","مباح دائمًا"],"c":"التوحيد","d":"صعب","origin":"textbook"},{"id":"L10-Q09","lessonId":"L10","q":"أي طريقة يذكرها الدرس ضمن وسائل العرافين الزائفة؟","a":"قراءة الكف","o":["قراءة الكف","فحص الدم في المختبر","الرصد الفلكي العلمي","قياس درجة الحرارة"],"c":"التوحيد","d":"صعب","origin":"textbook"},{"id":"L11-Q01","lessonId":"L11","q":"ما المقصود بالتنجيم المحرم؟","a":"ربط الحوادث الأرضية وتأثيرها بالنجوم على وجه باطل","o":["ربط الحوادث الأرضية وتأثيرها بالنجوم على وجه باطل","معرفة أوقات الصلاة بالحساب","تعلم أسماء الكواكب","رصد الكسوف علميًا"],"c":"التوحيد","d":"سهل","origin":"textbook"},{"id":"L11-Q02","lessonId":"L11","q":"ما القسم المباح من دراسة النجوم؟","a":"علم الفلك النافع لمعرفة المواقع والأوقات","o":["علم الفلك النافع لمعرفة المواقع والأوقات","ادعاء معرفة حظ الفرد","ادعاء أن نجمًا يرزق","توقع الموت من البرج"],"c":"التوحيد","d":"سهل","origin":"textbook"},{"id":"L11-Q03","lessonId":"L11","q":"ما حكم الاستدلال بالنجوم على جهة القبلة؟","a":"جائز","o":["جائز","كفر أكبر","حرام مطلقًا","لا يجوز أبدًا"],"c":"التوحيد","d":"سهل","origin":"textbook"},{"id":"L11-Q04","lessonId":"L11","q":"ما فائدة للنجوم وردت في القرآن؟","a":"الاهتداء بها في البر والبحر","o":["الاهتداء بها في البر والبحر","معرفة أرزاق البشر بالغيب","تحديد موعد وفاة الناس","التحكم في الأقدار"],"c":"التوحيد","d":"متوسط","origin":"textbook"},{"id":"L11-Q05","lessonId":"L11","q":"أي فائدة أخرى للنجوم ذكرها الدرس؟","a":"زينة للسماء","o":["زينة للسماء","خلق الإنسان","إحياء الموتى","إنزال الوحي"],"c":"التوحيد","d":"متوسط","origin":"textbook"},{"id":"L11-Q06","lessonId":"L11","q":"ما الفائدة الثالثة للنجوم في الدرس؟","a":"رجوم للشياطين","o":["رجوم للشياطين","مصدر مستقل للرزق","معرفة الذنوب الخفية","التحكم في الأعمار"],"c":"التوحيد","d":"متوسط","origin":"textbook"},{"id":"L11-Q07","lessonId":"L11","q":"ما موقف الدرس من التنبؤ العلمي بالطقس بناء على الأسباب؟","a":"جائز كتوقع محتمل غير جازم","o":["جائز كتوقع محتمل غير جازم","شرك أكبر دائمًا","علم غيب قطعي","غير ممكن علميًا"],"c":"التوحيد","d":"صعب","origin":"textbook"},{"id":"L11-Q08","lessonId":"L11","q":"ما وجه التشابه بين التنجيم المحرم والسحر؟","a":"ادعاء معرفة أمور غيبية والتلبيس على الناس","o":["ادعاء معرفة أمور غيبية والتلبيس على الناس","اعتماد كليهما على التجربة العلمية","كلاهما طريقة لحساب مواقيت الصلاة","كلاهما يحدد اتجاه القبلة فقط"],"c":"التوحيد","d":"صعب","origin":"textbook"},{"id":"L11-Q09","lessonId":"L11","q":"أي ادعاء من التنجيم المحرم؟","a":"نجم ميلادك يحدد رزقك","o":["نجم ميلادك يحدد رزقك","سير القمر له أطوار","الشمس تشرق من الشرق عادة","يمكن حساب موعد الكسوف"],"c":"التوحيد","d":"صعب","origin":"textbook"},{"id":"L12-Q01","lessonId":"L12","q":"كم عدد الأبراج التي تستعمل في أبراج الحظ؟","a":"اثنا عشر برجًا","o":["اثنا عشر برجًا","سبعة أبراج","ثمانية أبراج","ثلاثون برجًا"],"c":"التوحيد","d":"سهل","origin":"textbook"},{"id":"L12-Q02","lessonId":"L12","q":"ما الذي يدعيه أصحاب توقعات أبراج الحظ؟","a":"معرفة صفات الناس ومستقبلهم من الأبراج","o":["معرفة صفات الناس ومستقبلهم من الأبراج","معرفة سرعة الضوء","معرفة حركة الأرض بالتجربة","معرفة مواقيت الصلاة فقط"],"c":"التوحيد","d":"سهل","origin":"textbook"},{"id":"L12-Q03","lessonId":"L12","q":"ما حكم التعامل بأبراج الحظ كما ورد في الدرس؟","a":"حرام","o":["حرام","واجب","مستحب","مباح للتسلية دائمًا"],"c":"التوحيد","d":"سهل","origin":"textbook"},{"id":"L12-Q04","lessonId":"L12","q":"متى يكون تصديق الأبراج كفرًا أكبر في الدرس؟","a":"إذا صدقها في دعوى معرفة الغيب","o":["إذا صدقها في دعوى معرفة الغيب","إذا قرأ أسماء النجوم علميًا","إذا عرف عدد الأشهر","إذا درس الجغرافيا"],"c":"التوحيد","d":"متوسط","origin":"textbook"},{"id":"L12-Q05","lessonId":"L12","q":"ما حكم التعامل بالأبراج للتسلية واختبار توقعاتها وفق الدرس؟","a":"محرم ويعده الدرس من الكفر الأصغر","o":["محرم ويعده الدرس من الكفر الأصغر","عبادة مستحبة","واجب","لا حرج فيه مطلقًا"],"c":"التوحيد","d":"متوسط","origin":"textbook"},{"id":"L12-Q06","lessonId":"L12","q":"ما حكم نشر توقعات الأبراج والترويج لها؟","a":"محرم","o":["محرم","واجب","سنة مؤكدة","مباح مطلقًا"],"c":"التوحيد","d":"متوسط","origin":"textbook"},{"id":"L12-Q07","lessonId":"L12","q":"لماذا يُحذر من نشر أبراج الحظ؟","a":"لأنها تروج ادعاء معرفة الغيب وتضلل الناس","o":["لأنها تروج ادعاء معرفة الغيب وتضلل الناس","لأنها تشرح علم الرياضيات","لأنها تعرض حالات الطقس فقط","لأنها تحفظ أسماء البلدان"],"c":"التوحيد","d":"صعب","origin":"textbook"},{"id":"L12-Q08","lessonId":"L12","q":"ما حكم عبارة «من سوء الطالع خسرنا» في الدرس؟","a":"عبارة محرمة تنسب الحوادث للطالع","o":["عبارة محرمة تنسب الحوادث للطالع","ذكر مشروع","دعاء مأثور","إخبار علمي عن الطقس"],"c":"التوحيد","d":"صعب","origin":"textbook"},{"id":"L12-Q09","lessonId":"L12","q":"إلى من ينسب المؤمن النفع والضر والقدر؟","a":"إلى الله تعالى","o":["إلى الله تعالى","إلى البرج وحده","إلى الطالع استقلالًا","إلى تاريخ الميلاد"],"c":"التوحيد","d":"صعب","origin":"textbook"},{"id":"L13-Q01","lessonId":"L13","q":"ما معنى «الأنواء» في درس الاستسقاء بالأنواء؟","a":"النجوم","o":["النجوم","الأنهار","الجبال","الغيوم"],"c":"التوحيد","d":"سهل","origin":"textbook"},{"id":"L13-Q02","lessonId":"L13","q":"ما معنى الاستسقاء؟","a":"طلب السقيا والمطر","o":["طلب السقيا والمطر","طلب المغفرة فقط","اختيار الطعام","تحديد وقت الصلاة"],"c":"التوحيد","d":"سهل","origin":"textbook"},{"id":"L13-Q03","lessonId":"L13","q":"ما المقصود بالاستسقاء بالأنواء؟","a":"طلب المطر من النجوم أو نسبته إليها","o":["طلب المطر من النجوم أو نسبته إليها","دعاء الله لنزول المطر","إجراء قياسات مناخية","شكر الله على الغيث"],"c":"التوحيد","d":"سهل","origin":"textbook"},{"id":"L13-Q04","lessonId":"L13","q":"ما حكم اعتقاد أن النجم يُنزل المطر بنفسه؟","a":"شرك أكبر","o":["شرك أكبر","واجب","مستحب","مباح"],"c":"التوحيد","d":"متوسط","origin":"textbook"},{"id":"L13-Q05","lessonId":"L13","q":"ما حكم الاعتقاد أن النجم سبب للمطر دون دليل شرعي أو حسي مع الإقرار أن الله ينزله؟","a":"شرك أصغر كما يقرر الدرس","o":["شرك أصغر كما يقرر الدرس","واجب","عمل مستحب","علم فلك مشروع"],"c":"التوحيد","d":"متوسط","origin":"textbook"},{"id":"L13-Q06","lessonId":"L13","q":"ما العبارة المشروعة بعد نزول المطر؟","a":"مطرنا بفضل الله ورحمته","o":["مطرنا بفضل الله ورحمته","مطرنا بقدرة البرج","أنزل الكوكب المطر مستقلًا","النجم وحده رزقنا الغيث"],"c":"التوحيد","d":"متوسط","origin":"textbook"},{"id":"L13-Q07","lessonId":"L13","q":"ما الدعاء المذكور عند المطر؟","a":"اللهم صيبًا نافعًا","o":["اللهم صيبًا نافعًا","اللهم اجعل النجم ممطرًا","يا برج ارزقنا الغيث","اللهم احرمنا الخير"],"c":"التوحيد","d":"صعب","origin":"textbook"},{"id":"L13-Q08","lessonId":"L13","q":"ما معنى «صيبًا نافعًا»؟","a":"مطرًا نافعًا","o":["مطرًا نافعًا","ريحًا ضارة","جفافًا طويلًا","حرًا شديدًا"],"c":"التوحيد","d":"صعب","origin":"textbook"},{"id":"L13-Q09","lessonId":"L13","q":"أي فعل من السنة إذا نزل المطر ولم يُخش ضرر؟","a":"تعريض بعض البدن لأول المطر","o":["تعريض بعض البدن لأول المطر","سب السحاب","دعاء النجوم","نسبة المطر للطالع"],"c":"التوحيد","d":"صعب","origin":"textbook"},{"id":"L14-Q01","lessonId":"L14","q":"في أي سورة ورد النهي عن رفع الصوت فوق صوت النبي ﷺ؟","a":"سورة الحجرات","o":["سورة الحجرات","سورة الفلق","سورة الكوثر","سورة النصر"],"c":"التفسير","d":"سهل","origin":"textbook"},{"id":"L14-Q02","lessonId":"L14","q":"ما المقصود بـ«لا تقدموا بين يدي الله ورسوله»؟","a":"عدم مخالفة أمر الله ورسوله أو التقدم عليهما","o":["عدم مخالفة أمر الله ورسوله أو التقدم عليهما","الامتناع عن الدعاء","تقديم الآراء على الوحي دائمًا","الامتناع عن طلب العلم"],"c":"التفسير","d":"سهل","origin":"textbook"},{"id":"L14-Q03","lessonId":"L14","q":"ما الأدب الذي تأمر به الآية الثانية من الحجرات؟","a":"خفض الصوت عند النبي ﷺ","o":["خفض الصوت عند النبي ﷺ","الصياح عند الحديث","تجاهل السنة","مقاطعة المتحدث"],"c":"التفسير","d":"سهل","origin":"textbook"},{"id":"L14-Q04","lessonId":"L14","q":"ما معنى «لا تجهروا له بالقول»؟","a":"لا ترفعوا الصوت عند مخاطبة النبي ﷺ","o":["لا ترفعوا الصوت عند مخاطبة النبي ﷺ","لا تصلوا عليه","لا تذكروا اسمه","لا تقرؤوا القرآن"],"c":"التفسير","d":"متوسط","origin":"textbook"},{"id":"L14-Q05","lessonId":"L14","q":"ما معنى «يغضون أصواتهم»؟","a":"يخفضون أصواتهم","o":["يخفضون أصواتهم","يرفعون أصواتهم","يتركون الكلام نهائيًا","يتحدثون من بعيد"],"c":"التفسير","d":"متوسط","origin":"textbook"},{"id":"L14-Q06","lessonId":"L14","q":"ماذا أعد الله لمن غض صوته عند رسوله ﷺ؟","a":"مغفرة وأجرًا عظيمًا","o":["مغفرة وأجرًا عظيمًا","عقوبة دنيوية","حرمانًا من الثواب","فقدان الإيمان"],"c":"التفسير","d":"متوسط","origin":"textbook"},{"id":"L14-Q07","lessonId":"L14","q":"ما المقصود بـ«الحجرات» في هذه الآيات؟","a":"غرف زوجات النبي ﷺ","o":["غرف زوجات النبي ﷺ","أسوار مكة","خزائن المسجد","منازل الصحابة جميعًا"],"c":"التفسير","d":"صعب","origin":"textbook"},{"id":"L14-Q08","lessonId":"L14","q":"ما السلوك الأفضل لمن أراد مقابلة النبي ﷺ وهو في حجراته؟","a":"الصبر حتى يخرج إليهم","o":["الصبر حتى يخرج إليهم","النداء بصوت مرتفع من وراء الحجرات","اقتحام الغرف","التعجيل والصراخ"],"c":"التفسير","d":"صعب","origin":"textbook"},{"id":"L14-Q09","lessonId":"L14","q":"ما أثر رفع الصوت على وجه يسيء للأدب مع النبي ﷺ كما في الآيات؟","a":"الخوف من حبوط العمل","o":["الخوف من حبوط العمل","زيادة الثواب حتمًا","إلغاء حرمة الاحترام","سقوط جميع الآداب"],"c":"التفسير","d":"صعب","origin":"textbook"},{"id":"L15-Q01","lessonId":"L15","q":"بماذا يأمر قوله تعالى «إن جاءكم فاسق بنبإ فتبينوا»؟","a":"التثبت من الخبر قبل العمل به","o":["التثبت من الخبر قبل العمل به","نشر الخبر فورًا","اتهام الأبرياء","تجاهل الحقائق"],"c":"التفسير","d":"سهل","origin":"textbook"},{"id":"L15-Q02","lessonId":"L15","q":"ما معنى «فاسق» في سياق الآية؟","a":"العاصي الخارج عن الطاعة","o":["العاصي الخارج عن الطاعة","الصابر على البلاء","الشاكر للنعمة","المحسن للناس"],"c":"التفسير","d":"سهل","origin":"textbook"},{"id":"L15-Q03","lessonId":"L15","q":"ما معنى «فتبينوا»؟","a":"تثبتوا وتحققوا","o":["تثبتوا وتحققوا","انشروا دون فحص","اتبعوا الظن","أخفوا الحق"],"c":"التفسير","d":"سهل","origin":"textbook"},{"id":"L15-Q04","lessonId":"L15","q":"ما عاقبة التصرف بناءً على خبر غير متحقق منه؟","a":"الندم وإصابة الأبرياء بجهالة","o":["الندم وإصابة الأبرياء بجهالة","النجاح المؤكد","العلم بالغيب","زوال المسؤولية"],"c":"التفسير","d":"متوسط","origin":"textbook"},{"id":"L15-Q05","lessonId":"L15","q":"ما معنى «لعنتم» في الآية السابعة؟","a":"لأصابتكم المشقة","o":["لأصابتكم المشقة","لأصبحتم أقوياء","لأصبتم مالًا","لنسيتم الخبر"],"c":"التفسير","d":"متوسط","origin":"textbook"},{"id":"L15-Q06","lessonId":"L15","q":"ماذا حبب الله إلى المؤمنين في الآيات؟","a":"الإيمان","o":["الإيمان","الكفر","العصيان","الفسوق"],"c":"التفسير","d":"متوسط","origin":"textbook"},{"id":"L15-Q07","lessonId":"L15","q":"ماذا يأمر القرآن إذا اقتتلت طائفتان من المؤمنين؟","a":"الإصلاح بينهما","o":["الإصلاح بينهما","تأجيج الخلاف","إشاعة الشائعات","الشماتة في الفريقين"],"c":"التفسير","d":"صعب","origin":"textbook"},{"id":"L15-Q08","lessonId":"L15","q":"ما معنى «وأقسطوا»؟","a":"اعدلوا وأنصفوا","o":["اعدلوا وأنصفوا","ظلموا","تجاهلوا","تفرقوا"],"c":"التفسير","d":"صعب","origin":"textbook"},{"id":"L15-Q09","lessonId":"L15","q":"ماذا تقرر آية «إنما المؤمنون إخوة»؟","a":"أخوة الإيمان ووجوب الإصلاح","o":["أخوة الإيمان ووجوب الإصلاح","إباحة الظلم","جواز القطيعة","منع العدل"],"c":"التفسير","d":"صعب","origin":"textbook"},{"id":"L16-Q01","lessonId":"L16","q":"ما الذي تنهى عنه الآية «لا يسخر قوم من قوم»؟","a":"الاستهزاء بالآخرين","o":["الاستهزاء بالآخرين","الرفق بالناس","الإحسان إلى الجار","المساعدة في الخير"],"c":"التفسير","d":"سهل","origin":"textbook"},{"id":"L16-Q02","lessonId":"L16","q":"ما معنى «ولا تلمزوا أنفسكم»؟","a":"لا يعب بعضكم بعضًا","o":["لا يعب بعضكم بعضًا","لا تتعاونوا","لا تتصدقوا","لا تسافروا"],"c":"التفسير","d":"سهل","origin":"textbook"},{"id":"L16-Q03","lessonId":"L16","q":"ما معنى «ولا تنابزوا بالألقاب»؟","a":"لا يدع بعضكم بعضًا بألقاب يكرهها","o":["لا يدع بعضكم بعضًا بألقاب يكرهها","لا تنادوا بأسماء حسنة","لا تتعلموا أسماء الناس","لا تعرفوا الأنساب"],"c":"التفسير","d":"سهل","origin":"textbook"},{"id":"L16-Q04","lessonId":"L16","q":"ما المراد بسوء الظن المنهي عنه؟","a":"اتهام الناس بغير دليل","o":["اتهام الناس بغير دليل","التثبت من الأخبار","حسن الظن بالمسلم","التحقق من الشائعة"],"c":"التفسير","d":"متوسط","origin":"textbook"},{"id":"L16-Q05","lessonId":"L16","q":"ما معنى «ولا تجسسوا»؟","a":"لا تتبعوا عورات الناس وأسرارهم","o":["لا تتبعوا عورات الناس وأسرارهم","لا تعينوا المحتاج","لا تطلبوا العلم","لا تتحدثوا بصدق"],"c":"التفسير","d":"متوسط","origin":"textbook"},{"id":"L16-Q06","lessonId":"L16","q":"ما الغيبة؟","a":"ذكر الإنسان بما يكره في غيابه دون مسوغ شرعي","o":["ذكر الإنسان بما يكره في غيابه دون مسوغ شرعي","مدحه في غيبته","النصيحة الصادقة أمامه بلطف","الدعاء له"],"c":"التفسير","d":"متوسط","origin":"textbook"},{"id":"L16-Q07","lessonId":"L16","q":"بم شبّه القرآن الغيبة؟","a":"بأكل لحم الأخ ميتًا","o":["بأكل لحم الأخ ميتًا","بشرب ماء المطر","بزراعة الأرض","بإصلاح ذات البين"],"c":"التفسير","d":"صعب","origin":"textbook"},{"id":"L16-Q08","lessonId":"L16","q":"ما الحكمة من جعل الناس شعوبًا وقبائل؟","a":"التعارف لا التفاخر","o":["التعارف لا التفاخر","الاحتقار والتباغض","التجسس على الآخرين","التعصب للأنساب"],"c":"التفسير","d":"صعب","origin":"textbook"},{"id":"L16-Q09","lessonId":"L16","q":"ما معيار التفاضل عند الله في الآية الثالثة عشرة؟","a":"التقوى","o":["التقوى","المال","النسب","القوة الجسدية"],"c":"التفسير","d":"صعب","origin":"textbook"},{"id":"L17-Q01","lessonId":"L17","q":"ما الكتاب الذي أنزله الله على عبده المذكور في مطلع سورة الكهف؟","a":"القرآن الكريم","o":["القرآن الكريم","التوراة","الزبور","الإنجيل"],"c":"التفسير","d":"سهل","origin":"textbook"},{"id":"L17-Q02","lessonId":"L17","q":"ما معنى «قيّمًا» في مطلع سورة الكهف؟","a":"مستقيمًا","o":["مستقيمًا","معوجًا","ضعيفًا","زائلًا"],"c":"التفسير","d":"سهل","origin":"textbook"},{"id":"L17-Q03","lessonId":"L17","q":"ما معنى «لم يجعل له عوجًا»؟","a":"ليس فيه ميل عن الحق","o":["ليس فيه ميل عن الحق","فيه تناقض مقصود","فيه ظلم","فيه جهل"],"c":"التفسير","d":"سهل","origin":"textbook"},{"id":"L17-Q04","lessonId":"L17","q":"لماذا أنزل الله الكتاب كما في الآيات الأولى؟","a":"للإنذار والبشارة","o":["للإنذار والبشارة","للزينة وحدها","ليغني عن كل عمل","ليجعل الناس يعلمون الغيب"],"c":"التفسير","d":"متوسط","origin":"textbook"},{"id":"L17-Q05","lessonId":"L17","q":"بم يبشر القرآن المؤمنين الذين يعملون الصالحات؟","a":"بأجر حسن وهو الجنة","o":["بأجر حسن وهو الجنة","بمنع المغفرة","بالعقاب المؤبد","بالحياة بلا حساب"],"c":"التفسير","d":"متوسط","origin":"textbook"},{"id":"L17-Q06","lessonId":"L17","q":"ما معنى «ماكثين فيه أبدا»؟","a":"مقيمين فيه دائمًا","o":["مقيمين فيه دائمًا","باقين ساعة واحدة","غائبين عنه","ممنوعين من دخوله"],"c":"التفسير","d":"متوسط","origin":"textbook"},{"id":"L17-Q07","lessonId":"L17","q":"ما الحكم على ادعاء أن لله ولدًا كما في الآيات؟","a":"قول باطل وكذب","o":["قول باطل وكذب","حق ثابت","أمر مباح","فرض ديني"],"c":"التفسير","d":"صعب","origin":"textbook"},{"id":"L17-Q08","lessonId":"L17","q":"ما معنى «باخع نفسك»؟","a":"مهلك نفسك من شدة الحزن","o":["مهلك نفسك من شدة الحزن","مسرور جدًا","مستريح دائمًا","نائم طويلًا"],"c":"التفسير","d":"صعب","origin":"textbook"},{"id":"L17-Q09","lessonId":"L17","q":"لماذا جعل الله ما على الأرض زينة لها؟","a":"ليختبر الناس أيهم أحسن عملًا","o":["ليختبر الناس أيهم أحسن عملًا","لتكون الحياة أبدية","ليعلم الناس الغيب","لإلغاء الحساب"],"c":"التفسير","d":"صعب","origin":"textbook"},{"id":"L18-Q01","lessonId":"L18","q":"من هم «الفتية» في قصة أصحاب الكهف؟","a":"شبان آمنوا بالله","o":["شبان آمنوا بالله","ملوك عبدوا الأصنام","تجار كذبوا الرسل","جنود أنكروا البعث"],"c":"التفسير","d":"سهل","origin":"textbook"},{"id":"L18-Q02","lessonId":"L18","q":"إلى أين لجأ الفتية حفاظًا على دينهم؟","a":"إلى الكهف","o":["إلى الكهف","إلى القصر","إلى السوق","إلى البحر"],"c":"التفسير","d":"سهل","origin":"textbook"},{"id":"L18-Q03","lessonId":"L18","q":"ماذا طلب الفتية في دعائهم «ربنا آتنا من لدنك رحمة»؟","a":"رحمة من الله وهداية ورشدًا","o":["رحمة من الله وهداية ورشدًا","المال دون إيمان","سلطانًا على الناس","علم الغيب"],"c":"التفسير","d":"سهل","origin":"textbook"},{"id":"L18-Q04","lessonId":"L18","q":"ما معنى «فضربنا على آذانهم»؟","a":"ألقينا عليهم نومًا عميقًا","o":["ألقينا عليهم نومًا عميقًا","أمرناهم بالسفر","منعنا عنهم الطعام","أغرقناهم"],"c":"التفسير","d":"متوسط","origin":"textbook"},{"id":"L18-Q05","lessonId":"L18","q":"كيف وصف القرآن عدد السنين التي نامها الفتية في الآية الحادية عشرة؟","a":"سنين عددًا","o":["سنين عددًا","يومًا واحدًا","شهرًا واحدًا","سبع ليالٍ"],"c":"التفسير","d":"متوسط","origin":"textbook"},{"id":"L18-Q06","lessonId":"L18","q":"ما معنى «وزدناهم هدى»؟","a":"زدناهم إيمانًا وبصيرة","o":["زدناهم إيمانًا وبصيرة","أنقصنا يقينهم","زدناهم مالًا فحسب","جعلناهم يعبدون غير الله"],"c":"التفسير","d":"متوسط","origin":"textbook"},{"id":"L18-Q07","lessonId":"L18","q":"ما معنى «وربطنا على قلوبهم»؟","a":"قوينا قلوبهم على الثبات على الحق","o":["قوينا قلوبهم على الثبات على الحق","صرفناهم عن الإيمان","أنسيناهم كل شيء","جعلناهم يتفاخرون"],"c":"التفسير","d":"صعب","origin":"textbook"},{"id":"L18-Q08","lessonId":"L18","q":"ما الذي رفض الفتية فعله رغم موقف قومهم؟","a":"عبادة آلهة من دون الله","o":["عبادة آلهة من دون الله","الدعاء لله وحده","الثبات على التوحيد","الاعتصام بدينهم"],"c":"التفسير","d":"صعب","origin":"textbook"},{"id":"L18-Q09","lessonId":"L18","q":"ما معنى «شططًا» في قول الفتية؟","a":"قولًا بعيدًا عن الحق ومتجاوزًا للحد","o":["قولًا بعيدًا عن الحق ومتجاوزًا للحد","قولًا صادقًا","موقفًا متزنًا","دليلًا صحيحًا"],"c":"التفسير","d":"صعب","origin":"textbook"},{"id":"L19-Q01","lessonId":"L19","q":"ما معنى «تزاور» في وصف الشمس عند الكهف؟","a":"تميل","o":["تميل","تثبت دائمًا","تنطفئ","تتوقف عن الحركة"],"c":"التفسير","d":"سهل","origin":"textbook"},{"id":"L19-Q02","lessonId":"L19","q":"ما معنى «تقرضهم» في الآية السابعة عشرة؟","a":"تتجاوزهم وتتركهم","o":["تتجاوزهم وتتركهم","تحرقهم كل يوم","تغمرهم بالماء","توقظهم"],"c":"التفسير","d":"سهل","origin":"textbook"},{"id":"L19-Q03","lessonId":"L19","q":"ما معنى «فجوة» من الكهف؟","a":"موضع متسع","o":["موضع متسع","باب ضيق جدًا","قمة جبل","قاع نهر"],"c":"التفسير","d":"سهل","origin":"textbook"},{"id":"L19-Q04","lessonId":"L19","q":"لماذا كان الله يقلب أصحاب الكهف يمينًا وشمالًا؟","a":"لحفظ أجسادهم من التلف","o":["لحفظ أجسادهم من التلف","ليوقظهم كل ساعة","ليغير عددهم","ليزيد ضوء الشمس عليهم"],"c":"التفسير","d":"متوسط","origin":"textbook"},{"id":"L19-Q05","lessonId":"L19","q":"ما معنى «بالوصيد» في وصف كلبهم؟","a":"بباب الكهف","o":["بباب الكهف","داخل المدينة","فوق الجبل","في النهر"],"c":"التفسير","d":"متوسط","origin":"textbook"},{"id":"L19-Q06","lessonId":"L19","q":"ما الحالة التي ظنها من يراهم رغم نومهم؟","a":"أنهم أيقاظ","o":["أنهم أيقاظ","أنهم يسافرون","أنهم يعملون","أنهم يتحدثون"],"c":"التفسير","d":"متوسط","origin":"textbook"},{"id":"L19-Q07","lessonId":"L19","q":"ماذا قال أصحاب الكهف عن مدة بقائهم عندما استيقظوا؟","a":"لبثنا يومًا أو بعض يوم","o":["لبثنا يومًا أو بعض يوم","لبثنا عشرين سنة يقينًا","لم ننم مطلقًا","لبثنا ألف سنة"],"c":"التفسير","d":"صعب","origin":"textbook"},{"id":"L19-Q08","lessonId":"L19","q":"ما المقصود بـ«ورقكم» في الآية التاسعة عشرة؟","a":"نقودكم الفضية","o":["نقودكم الفضية","أوراق الأشجار","ثيابكم","كتبكم"],"c":"التفسير","d":"صعب","origin":"textbook"},{"id":"L19-Q09","lessonId":"L19","q":"لماذا طلب الفتية من صاحبهم التلطف وعدم إخبار الناس بهم؟","a":"خوفًا من أن يكتشفهم قومهم ويؤذوهم في دينهم","o":["خوفًا من أن يكتشفهم قومهم ويؤذوهم في دينهم","لأن الطعام غير موجود","لأنهم أرادوا الشهرة","لأنهم لم يؤمنوا بالله"],"c":"التفسير","d":"صعب","origin":"textbook"},{"id":"L20-Q01","lessonId":"L20","q":"ماذا يدل اطلاع الناس على أصحاب الكهف بعد بعثهم؟","a":"قدرة الله وأن وعد البعث حق","o":["قدرة الله وأن وعد البعث حق","أن البعث مستحيل","أن الغيب يعرفه الجميع","أن النوم لا ينتهي"],"c":"التفسير","d":"سهل","origin":"textbook"},{"id":"L20-Q02","lessonId":"L20","q":"ما المسألة التي اختلف الناس فيها بشأن أصحاب الكهف؟","a":"عددهم","o":["عددهم","اسم السورة","وجود الشمس","وجوب الصلاة"],"c":"التفسير","d":"سهل","origin":"textbook"},{"id":"L20-Q03","lessonId":"L20","q":"ما معنى «رجمًا بالغيب»؟","a":"قولًا بلا علم أو دليل","o":["قولًا بلا علم أو دليل","علمًا يقينيًا","خبرًا موثقًا","وحيًا من الله"],"c":"التفسير","d":"سهل","origin":"textbook"},{"id":"L20-Q04","lessonId":"L20","q":"ما التوجيه في قوله «قل ربي أعلم بعدتهم»؟","a":"رد العلم إلى الله فيما لا نعلمه","o":["رد العلم إلى الله فيما لا نعلمه","الجزم بالظن","اتباع الشائعات","تقديم التخمين على الوحي"],"c":"التفسير","d":"متوسط","origin":"textbook"},{"id":"L20-Q05","lessonId":"L20","q":"ما معنى «فلا تمار فيهم»؟","a":"لا تجادل في شأنهم جدالًا متعمقًا بلا فائدة","o":["لا تجادل في شأنهم جدالًا متعمقًا بلا فائدة","لا تقرأ قصتهم","لا تذكر الله","لا تسأل أهل العلم مطلقًا"],"c":"التفسير","d":"متوسط","origin":"textbook"},{"id":"L20-Q06","lessonId":"L20","q":"ما الذي يقال عند العزم على فعل شيء في المستقبل؟","a":"إن شاء الله","o":["إن شاء الله","بالنجم سيكون","لا حاجة لمشيئة الله","لقد عرفت الغيب"],"c":"التفسير","d":"متوسط","origin":"textbook"},{"id":"L20-Q07","lessonId":"L20","q":"ماذا يفعل المسلم إذا نسي قول «إن شاء الله» ثم تذكر؟","a":"يذكر الله ويقولها حين يتذكر","o":["يذكر الله ويقولها حين يتذكر","يسب الزمن","يترك العمل الواجب","يدعي علم الغيب"],"c":"التفسير","d":"صعب","origin":"textbook"},{"id":"L20-Q08","lessonId":"L20","q":"كم لبث أصحاب الكهف كما ورد في الآية الخامسة والعشرين؟","a":"ثلاث مئة سنة وازدادوا تسعًا","o":["ثلاث مئة سنة وازدادوا تسعًا","ثلاثين سنة فقط","مئة سنة","ألف سنة"],"c":"التفسير","d":"صعب","origin":"textbook"},{"id":"L20-Q09","lessonId":"L20","q":"ما موقف المسلم من سؤال غير الموثوقين عن أمور الغيب دون علم؟","a":"يتجنب الخوض بغير دليل ويرجع للعلم الموثوق","o":["يتجنب الخوض بغير دليل ويرجع للعلم الموثوق","يصدق كل تخمين","يتبع العرافين","يجزم بما لا يعلم"],"c":"التفسير","d":"صعب","origin":"textbook"}];
+    const CUSTOM_STORAGE_KEY = "nuqta_custom_questions_v1";
+    function loadCustomQuestions() {
+      try {
+        const value = JSON.parse(localStorage.getItem(CUSTOM_STORAGE_KEY) || "[]");
+        if (!Array.isArray(value)) return [];
+        return value.filter(item => item && typeof item.q === "string" && typeof item.a === "string" && Array.isArray(item.o) && item.o.length === 4 && item.o.includes(item.a) && typeof item.id === "string");
+      } catch (e) { return []; }
+    }
+    let myQuestions = loadCustomQuestions();
+    function saveCustomQuestions() {
+      try { localStorage.setItem(CUSTOM_STORAGE_KEY, JSON.stringify(myQuestions)); return true; }
+      catch (e) { alert("تعذّر الحفظ على هذا المتصفح. تحقق من مساحة التخزين أو إعداداته."); return false; }
+    }
+    function updateSourceSelection() {
+      const source = $("questionSource").value;
+      $("categoryField").classList.toggle("hidden", source !== "general");
+      $("lessonChoice").classList.toggle("hidden", source !== "textbook");
+      $("personalChoice").classList.toggle("hidden", source !== "personal");
+      updateQuestionCountHint();
+    }
+    function updateQuestionCountHint() {
+      const source = $("questionSource").value;
+      let available = source === "general" ? questions : source === "personal" ? myQuestions : textbookQuestions;
+      if (source === "general" && $("category").value !== "الكل") available = available.filter(x => x.c === $("category").value);
+      if (source === "textbook" && $("lessonSelect").value !== "all") available = available.filter(x => x.lessonId === $("lessonSelect").value);
+      if ($("difficulty").value !== "الكل") available = available.filter(x => x.d === $("difficulty").value);
+      $("countHint").textContent = `الأسئلة المتاحة بهذه الاختيارات: ${available.length} سؤال. عند اختيار عدد أكبر، تُعرض الأسئلة المتاحة فقط.`;
+    }
+    function initLessonOptions() {
+      for (const lesson of textbookLessons) {
+        const label = `${lesson.section} | ${lesson.id.slice(1)} - ${lesson.name} (9 أسئلة)`;
+        for (const id of ["lessonSelect", "customLesson"]) {
+          const option = document.createElement("option");
+          option.value = lesson.id;
+          option.textContent = label;
+          $(id).appendChild(option);
+        }
+      }
+      for (const id of ["lessonSelect", "category", "difficulty"]) $(id).addEventListener("change", updateQuestionCountHint);
+      updateSourceSelection();
+    }
+    function addCustomQuestion() {
+      const q = $("customQuestion").value.trim();
+      const o = [0,1,2,3].map(i => $("customOption"+i).value.trim());
+      const message = $("customStatus");
+      if (!q || o.some(value => !value) || new Set(o).size !== 4) {
+        message.textContent = "اكتب السؤال وجميع الخيارات الأربعة، واجعلها مختلفة."; return;
+      }
+      const selected = Number($("correctOption").value);
+      const lessonId = $("customLesson").value;
+      const linkedLesson = textbookLessons.find(l => l.id === lessonId);
+      const item = { id:"MY-"+Date.now()+"-"+Math.floor(Math.random()*100000), q, a:o[selected], o,
+        c:linkedLesson ? linkedLesson.section : "أسئلتي الخاصة", d:$("customDifficulty").value,
+        lessonId:linkedLesson ? lessonId : null, origin:"personal" };
+      myQuestions.push(item);
+      if (!saveCustomQuestions()) { myQuestions.pop(); return; }
+      ["customQuestion","customOption0","customOption1","customOption2","customOption3"].forEach(id => $(id).value = "");
+      message.textContent = `تم حفظ السؤال. لديك الآن ${myQuestions.length} سؤالًا مضافًا على هذا المتصفح.`;
+      updateQuestionCountHint();
+    }
+    function clearMyQuestions() {
+      if (!myQuestions.length) { $("customStatus").textContent = "لا توجد أسئلة مضافة."; return; }
+      if (!confirm(`هل تريد حذف جميع أسئلتك المضافة وعددها ${myQuestions.length}؟`)) return;
+      myQuestions=[]; saveCustomQuestions(); updateQuestionCountHint();
+      $("customStatus").textContent = "تم حذف الأسئلة الشخصية فقط. بنك الأسئلة الأصلي والكتاب لم يتغيرا.";
+    }
+    function exportMyQuestions() {
+      if (!myQuestions.length) { $("customStatus").textContent="لا توجد أسئلة شخصية لتصديرها."; return; }
+      const blob = new Blob([JSON.stringify(myQuestions,null,2)], {type:"application/json;charset=utf-8"});
+      const url=URL.createObjectURL(blob), a=document.createElement("a");
+      a.href=url; a.download="nuqta-my-questions.json"; document.body.appendChild(a);a.click();a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    let mode = "solo";
+    let deck = [];
+    let currentIndex = 0;
+    let currentPlayer = 0;
+    let scores = [0, 0];
+    let playerNames = ["اللاعب الأول", "اللاعب الثاني"];
+    let review = [];
+    let answered = false;
+    let lastConfig = null;
+
+    const $ = id => document.getElementById(id);
+
+    function setMode(selectedMode) {
+      mode = selectedMode;
+      $("soloMode").classList.toggle("active", mode === "solo");
+      $("duoMode").classList.toggle("active", mode === "duo");
+      $("playerNames").classList.toggle("hidden", mode !== "duo");
+    }
+
+    function shuffle(array) {
+      const result = [...array];
+
+      for (let i = result.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [result[i], result[j]] = [result[j], result[i]];
+      }
+
+      return result;
+    }
+
+    function startQuiz() {
+      lastConfig = {
+        source: $("questionSource").value,
+        category: $("category").value,
+        lessonId: $("lessonSelect").value,
+        difficulty: $("difficulty").value,
+        count: $("questionCount").value
+      };
+      const bank = lastConfig.source === "textbook" ? textbookQuestions :
+        lastConfig.source === "personal" ? myQuestions : questions;
+      let filtered = bank.filter(q => {
+        const categoryMatch = lastConfig.source !== "general" ||
+          lastConfig.category === "الكل" || q.c === lastConfig.category;
+        const lessonMatch = lastConfig.source !== "textbook" ||
+          lastConfig.lessonId === "all" || q.lessonId === lastConfig.lessonId;
+        const difficultyMatch = lastConfig.difficulty === "الكل" || q.d === lastConfig.difficulty;
+        return categoryMatch && lessonMatch && difficultyMatch;
+      });
+
+      if (!filtered.length) {
+        alert("لا توجد أسئلة مطابقة لهذه الاختيارات. غيّر الدرس أو مستوى الصعوبة أو أضف سؤالًا شخصيًا.");
+        return;
+      }
+
+      deck = shuffle(filtered);
+
+      if (lastConfig.count !== "all") {
+        deck = deck.slice(0, Math.min(Number(lastConfig.count), deck.length));
+      }
+
+      playerNames = [
+        $("player1").value.trim() || "اللاعب الأول",
+        $("player2").value.trim() || "اللاعب الثاني"
+      ];
+
+      currentIndex = 0;
+      currentPlayer = 0;
+      scores = [0, 0];
+      review = [];
+      answered = false;
+
+      $("setup").classList.add("hidden");
+      $("resultScreen").classList.add("hidden");
+      $("quizScreen").classList.remove("hidden");
+
+      renderQuestion();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function renderQuestion() {
+      answered = false;
+
+      const item = deck[currentIndex];
+
+      $("questionNumber").textContent =
+        `السؤال ${currentIndex + 1} من ${deck.length}`;
+
+      const lesson = item.lessonId && textbookLessons.find(l => l.id === item.lessonId);
+      $("categoryLabel").textContent = lesson ? `${lesson.section}: ${lesson.name}` : item.c;
+
+      $("turnLabel").textContent = mode === "duo"
+        ? `دور: ${playerNames[currentPlayer]}`
+        : "التحدي الفردي";
+
+      $("progressFill").style.width =
+        `${(currentIndex / deck.length) * 100}%`;
+
+      $("questionText").textContent = item.q;
+      $("feedback").className = "feedback hidden";
+      $("feedback").textContent = "";
+      $("nextButton").classList.add("hidden");
+
+      const answers = shuffle(item.o);
+      const container = $("answers");
+      container.innerHTML = "";
+
+      answers.forEach(answer => {
+        const button = document.createElement("button");
+        button.className = "answer";
+        button.textContent = answer;
+        button.addEventListener("click", () => selectAnswer(answer, button));
+        container.appendChild(button);
+      });
+    }
+
+    function selectAnswer(selected, button) {
+      if (answered) return;
+
+      answered = true;
+
+      const item = deck[currentIndex];
+      const correct = selected === item.a;
+      const buttons = [...$("answers").querySelectorAll("button")];
+
+      buttons.forEach(btn => {
+        btn.disabled = true;
+
+        if (btn.textContent === item.a) {
+          btn.classList.add("correct");
+        }
+      });
+
+      if (correct) {
+        scores[currentPlayer]++;
+        button.classList.add("correct");
+
+        $("feedback").textContent =
+          "إجابة صحيحة! أحسنت، حصلت على نقطة.";
+
+        $("feedback").className = "feedback good";
+      } else {
+        button.classList.add("wrong");
+
+        $("feedback").textContent =
+          `إجابة غير صحيحة. الإجابة الصحيحة هي: ${item.a}`;
+
+        $("feedback").className = "feedback bad";
+      }
+
+      review.push({
+        question: item.q,
+        correctAnswer: item.a,
+        selectedAnswer: selected,
+        correct,
+        player: currentPlayer
+      });
+
+      $("progressFill").style.width =
+        `${((currentIndex + 1) / deck.length) * 100}%`;
+
+      $("nextButton").textContent =
+        currentIndex === deck.length - 1
+          ? "عرض النتيجة 🏆"
+          : "السؤال التالي ←";
+
+      $("nextButton").classList.remove("hidden");
+    }
+
+    function nextQuestion() {
+      if (!answered) return;
+
+      if (currentIndex >= deck.length - 1) {
+        showResults();
+        return;
+      }
+
+      currentIndex++;
+
+      if (mode === "duo") {
+        currentPlayer = currentIndex % 2;
+      }
+
+      renderQuestion();
+    }
+
+    function showResults() {
+      $("quizScreen").classList.add("hidden");
+      $("resultScreen").classList.remove("hidden");
+
+      const total = deck.length;
+      const percentage = Math.round((scores[0] / total) * 100);
+
+      if (mode === "solo") {
+        $("resultIcon").textContent =
+          percentage >= 80 ? "🏆" : percentage >= 50 ? "👏" : "📚";
+
+        $("resultTitle").textContent =
+          percentage >= 80
+            ? "ممتاز! أداء رائع"
+            : percentage >= 50
+              ? "أحسنت! استمر بالتعلّم"
+              : "لا تستسلم، جرّب مرة أخرى";
+
+        $("resultDescription").textContent =
+          `أجبت عن ${scores[0]} سؤالًا بشكل صحيح من أصل ${total} سؤال.`;
+
+        $("scoreGrid").innerHTML = `
+          <div class="score-box">
+            <span>الإجابات الصحيحة</span>
+            <strong>${scores[0]}</strong>
+          </div>
+          <div class="score-box">
+            <span>النتيجة</span>
+            <strong>${percentage}%</strong>
+          </div>
+        `;
+      } else {
+        let title = "تعادل!";
+        let icon = "🤝";
+
+        if (scores[0] > scores[1]) {
+          title = `الفائز: ${playerNames[0]}`;
+          icon = "🏆";
+        } else if (scores[1] > scores[0]) {
+          title = `الفائز: ${playerNames[1]}`;
+          icon = "🏆";
+        }
+
+        $("resultIcon").textContent = icon;
+        $("resultTitle").textContent = title;
+        $("resultDescription").textContent =
+          "انتهت المنافسة! إليكم النتائج.";
+
+        $("scoreGrid").innerHTML = `
+          <div class="score-box">
+            <span>${escapeHTML(playerNames[0])}</span>
+            <strong>${scores[0]}</strong>
+          </div>
+          <div class="score-box">
+            <span>${escapeHTML(playerNames[1])}</span>
+            <strong>${scores[1]}</strong>
+          </div>
+        `;
+      }
+
+      const reviewList = $("reviewList");
+      reviewList.innerHTML = "";
+
+      if (!review.length) {
+        reviewList.textContent = "لا توجد إجابات لمراجعتها.";
+      }
+
+      review.forEach((item, index) => {
+        const row = document.createElement("div");
+        row.className = "review-item";
+
+        const question = document.createElement("div");
+        question.className = "review-question";
+        question.textContent = `${index + 1}. ${item.question}`;
+
+        const correct = document.createElement("div");
+        correct.className = "review-answer";
+        correct.textContent = `الإجابة الصحيحة: ${item.correctAnswer}`;
+
+        row.appendChild(question);
+
+        if (mode === "duo") {
+          const player = document.createElement("div");
+          player.textContent = `إجابة ${playerNames[item.player]}`;
+          row.appendChild(player);
+        }
+
+        row.appendChild(correct);
+
+        if (!item.correct) {
+          const wrong = document.createElement("div");
+          wrong.className = "review-your-answer";
+          wrong.textContent = `إجابتك: ${item.selectedAnswer}`;
+          row.appendChild(wrong);
+        }
+
+        reviewList.appendChild(row);
+      });
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function quitQuiz() {
+      if (confirm("هل تريد إنهاء المسابقة والعودة إلى الإعدادات؟")) {
+        showSetup();
+      }
+    }
+
+    function showSetup() {
+      $("setup").classList.remove("hidden");
+      $("quizScreen").classList.add("hidden");
+      $("resultScreen").classList.add("hidden");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function escapeHTML(value) {
+      return String(value).replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      })[char]);
+    }
+    initLessonOptions();
+  </script>
+</body>
+</html>
